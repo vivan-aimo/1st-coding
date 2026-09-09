@@ -405,7 +405,7 @@
     .studio-stage {
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.45fr);
       gap: 1.4rem;
     }
 
@@ -447,7 +447,7 @@
     .canvas-wrapper {
       position: relative;
       width: 100%;
-      height: 380px;
+      height: 410px;
       background: #FAFAFA;
       border-radius: 26px;
       border: 3px dashed #CBD5E0;
@@ -471,12 +471,33 @@
 
     /* ตัวอักษรเส้นประขนาดใหญ่บึ้ม */
     .dashed-trace-char {
-      font-size: 14rem;
-      font-weight: 800;
-      line-height: 1;
-      color: rgba(255, 107, 139, 0.18);
-      -webkit-text-stroke: 4px #A0AEC0;
+      width: 78%;
+      height: 78%;
+      overflow: visible;
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+    }
+
+    .dashed-trace-char text {
+      font-family: var(--font-th);
+      font-size: 210px;
+      font-weight: 800;
+      fill: none;
+      stroke: #A0AEC0;
+      stroke-width: 3;
+      stroke-dasharray: 7 8;
+      stroke-linecap: round;
+      paint-order: stroke fill;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .dashed-trace-char path {
+      fill: none;
+      stroke: #A0AEC0;
+      stroke-width: 9;
+      stroke-dasharray: 8 9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .trace-start-bubble {
@@ -496,21 +517,58 @@
     .kindergarten-lines {
       position: absolute;
       inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
       pointer-events: none;
-      padding: 2.5rem 1.5rem;
+      padding: 1.2rem;
     }
 
-    .guide-line {
-      width: 100%;
-      height: 2px;
-      background: #E2E8F0;
+    .writing-cell {
+      position: relative;
+      border: 3px solid #E2E8F0;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.55);
     }
-    .guide-line.dashed-middle {
-      border-top: 2px dashed #94A3B8;
-      background: transparent;
+
+    .cell-guide-char {
+      position: absolute;
+      top: 12%;
+      left: 15%;
+      width: 70%;
+      height: 25%;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .cell-guide-char text {
+      font-family: var(--font-th);
+      font-size: 110px;
+      font-weight: 800;
+      fill: none;
+      stroke: #A0AEC0;
+      stroke-width: 3;
+      stroke-dasharray: 7 8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .writing-cell::before,
+    .writing-cell::after {
+      content: '';
+      position: absolute;
+      left: 14%;
+      right: 14%;
+      border-top: 2px solid #E2E8F0;
+    }
+
+    .writing-cell::before { top: 34%; }
+    .writing-cell::after {
+      top: 64%;
+      border-top-style: dashed;
+      border-top-color: #94A3B8;
     }
 
     /* เลเยอร์วาดเส้นจริงด้วย Apple Pencil */
@@ -536,6 +594,101 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+    }
+
+    .character-picker-bar {
+      width: 100%;
+      background: rgba(255,255,255,0.9);
+      border: 3px solid #E2E8F0;
+      border-radius: 24px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+    }
+
+    .character-picker-label {
+      flex-shrink: 0;
+      font-weight: 800;
+      color: #495057;
+    }
+
+    .character-quick-grid,
+    .character-set-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .character-quick-grid { flex: 1; }
+
+    .character-quick-btn,
+    .character-set-btn {
+      min-width: 38px;
+      height: 38px;
+      padding: 0 0.45rem;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      background: #FFFFFF;
+      color: #495057;
+      font-family: var(--font-th);
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .character-quick-btn.active,
+    .character-set-btn.selected {
+      background: #FFF0F5;
+      border-color: #FF6B8B;
+      color: #D6336C;
+    }
+
+    .set-picker-toggle,
+    .set-picker-apply {
+      flex-shrink: 0;
+      border: 2px solid #20BF6B;
+      border-radius: 14px;
+      padding: 0.45rem 0.8rem;
+      background: #EBFBEE;
+      color: #087F5B;
+      font-family: var(--font-th);
+      font-weight: 800;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .custom-set-panel {
+      width: 100%;
+      background: #FFFFFF;
+      border: 3px solid #20BF6B;
+      border-radius: 24px;
+      padding: 0.8rem 1rem;
+    }
+
+    .custom-set-panel.hidden { display: none; }
+    .custom-set-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin-bottom: 0.6rem;
+      font-weight: 800;
+      color: #087F5B;
+    }
+
+    .custom-set-header small {
+      color: #718096;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 850px) {
+      .character-picker-bar { align-items: flex-start; flex-wrap: wrap; }
+      .character-picker-label { width: 100%; }
+      .character-quick-grid { flex-basis: 100%; }
     }
 
     .palette-box {
@@ -1013,12 +1166,13 @@
       <div class="writing-board-card">
         <div class="board-header">
           <span class="board-title-tag">📝 ลากเส้นตามรอยประ</span>
-          <span style="font-size: 0.95rem; font-weight: 700; color: #718096;">เริ่มจากจุด 🟢 น้าา</span>
         </div>
         <div class="canvas-wrapper" id="traceWrapper">
           <div class="guide-underlay">
-            <div class="dashed-trace-char" id="traceGuideChar">ก</div>
-            <div class="trace-start-bubble">🟢</div>
+            <svg class="dashed-trace-char" viewBox="0 0 260 300" aria-hidden="true">
+              <path id="traceGuidePath" d="M 72 104 C 93 73, 145 67, 166 91 C 180 107, 184 142, 184 181 L 184 226 M 71 105 C 96 111, 112 125, 112 151 L 108 226"></path>
+              <text id="traceGuideChar" x="130" y="150">ก</text>
+            </svg>
           </div>
           <canvas class="drawing-canvas" id="canvasTrace"></canvas>
         </div>
@@ -1032,13 +1186,28 @@
         </div>
         <div class="canvas-wrapper" id="freeWrapper">
           <div class="kindergarten-lines">
-            <div class="guide-line"></div>
-            <div class="guide-line dashed-middle"></div>
-            <div class="guide-line"></div>
+            <div class="writing-cell"><svg class="cell-guide-char" viewBox="0 0 140 140" aria-hidden="true"><text x="70" y="70">ก</text></svg></div>
+            <div class="writing-cell"><svg class="cell-guide-char" viewBox="0 0 140 140" aria-hidden="true"><text x="70" y="70">ก</text></svg></div>
+            <div class="writing-cell"><svg class="cell-guide-char" viewBox="0 0 140 140" aria-hidden="true"><text x="70" y="70">ก</text></svg></div>
+            <div class="writing-cell"><svg class="cell-guide-char" viewBox="0 0 140 140" aria-hidden="true"><text x="70" y="70">ก</text></svg></div>
           </div>
           <canvas class="drawing-canvas" id="canvasFree"></canvas>
         </div>
       </div>
+    </section>
+
+    <section class="character-picker-bar" aria-label="เลือกตัวอักษรฝึกเขียน">
+      <span class="character-picker-label">เลือกตัวอักษร:</span>
+      <div class="character-quick-grid" id="characterQuickGrid"></div>
+      <button class="set-picker-toggle" id="btnToggleSetPicker" type="button">เลือกชุดฝึก</button>
+    </section>
+
+    <section class="custom-set-panel hidden" id="customSetPanel" aria-label="เลือกชุดตัวอักษรฝึกเขียน">
+      <div class="custom-set-header">
+        <span>ติ๊กตัวอักษรที่ต้องการฝึก <small id="characterSetCount">ชุดปัจจุบัน 44 ตัว</small></span>
+        <button class="set-picker-apply" id="btnApplyCharacterSet" type="button">เริ่มชุดนี้</button>
+      </div>
+      <div class="character-set-grid" id="characterSetGrid"></div>
     </section>
 
     <!-- แถบเครื่องมือ: ถาดดินสอสี ยางลบ และปุ่มเลื่อนตัวอักษร -->
@@ -1202,10 +1371,17 @@
           { char: "ซ", emoji: "⛓️", word: "ซ โซ่", detail: "ล่ามที", speak: "ซ โซ่ ผูกไว้" },
           { char: "ฌ", emoji: "🌳", word: "ฌ กะเฌอ", detail: "คู่กัน", speak: "ฌ กะเฌอ ต้นไม้" },
           { char: "ญ", emoji: "👧", word: "ญ หญิง", detail: "โสภา", speak: "ญ หญิง น่ารัก" },
+          { char: "ฎ", emoji: "👑", word: "ฎ ชฎา", detail: "สวมใส่บนศีรษะ", speak: "ฎ ชฎา สวยงาม" },
+          { char: "ฏ", emoji: "🦔", word: "ฏ ปฏัก", detail: "อาวุธโบราณ", speak: "ฏ ปฏัก แหลมคม" },
+          { char: "ฐ", emoji: "🏛️", word: "ฐ ฐาน", detail: "รองรับสิ่งต่าง ๆ", speak: "ฐ ฐาน แข็งแรง" },
+          { char: "ฑ", emoji: "🎭", word: "ฑ มณโฑ", detail: "ตัวละครในเรื่องเล่า", speak: "ฑ มณโฑ แสนสวย" },
+          { char: "ฒ", emoji: "👴", word: "ฒ ผู้เฒ่า", detail: "ผู้ใหญ่ใจดี", speak: "ฒ ผู้เฒ่า ใจดี" },
+          { char: "ณ", emoji: "🪷", word: "ณ เณร", detail: "ผู้ตั้งใจเรียนธรรมะ", speak: "ณ เณร เรียบร้อย" },
           { char: "ด", emoji: "👶", word: "ด เด็ก", detail: "ต้องนิมนต์", speak: "ด เด็ก คนเก่ง" },
           { char: "ต", emoji: "🐢", word: "ต เต่า", detail: "หลังตุง", speak: "ต เต่า คลานต้วมเตี้ยม" },
           { char: "ถ", emoji: "🎒", word: "ถ ถุง", detail: "แบกขน", speak: "ถ ถุง ใส่ของ" },
           { char: "ท", emoji: "💂", word: "ท ทหาร", detail: "อดทน", speak: "ท ทหาร เข้มแข็ง" },
+          { char: "ธ", emoji: "🚩", word: "ธ ธง", detail: "โบกสะบัดบนเสา", speak: "ธ ธง โบกไสว" },
           { char: "น", emoji: "🐭", word: "น หนู", detail: "ขวักไขว่", speak: "น หนู ตัวจิ๋ว" },
           { char: "บ", emoji: "🍃", word: "บ ใบไม้", detail: "ทับถม", speak: "บ ใบไม้ สีเขียว" },
           { char: "ป", emoji: "🐟", word: "ป ปลา", detail: "ตากลม", speak: "ป ปลา ว่ายน้ำ" },
@@ -1213,13 +1389,17 @@
           { char: "ฝ", emoji: "🛡️", word: "ฝ ฝา", detail: "ทนทาน", speak: "ฝ ฝา ปิดแน่น" },
           { char: "พ", emoji: "🍇", word: "พ พาน", detail: "วางตั้ง", speak: "พ พาน วางของ" },
           { char: "ฟ", emoji: "🦷", word: "ฟ ฟัน", detail: "สะอาดจัง", speak: "ฟ ฟัน ขาวสะอาด" },
+          { char: "ภ", emoji: "⛵", word: "ภ สำเภา", detail: "เรือเดินทะเล", speak: "ภ สำเภา ล่องทะเล" },
           { char: "ม", emoji: "🐎", word: "ม ม้า", detail: "คึกคัก", speak: "ม ม้า วิ่งเร็ว" },
           { char: "ย", emoji: "👹", word: "ย ยักษ์", detail: "เขี้ยวใหญ่", speak: "ย ยักษ์ ใจดี" },
           { char: "ร", emoji: "⛵", word: "ร เรือ", detail: "พายไป", speak: "ร เรือ แล่นในน้ำ" },
           { char: "ล", emoji: "🐒", word: "ล ลิง", detail: "ไต่ราว", speak: "ล ลิง จอมซน" },
           { char: "ว", emoji: "💍", word: "ว แหวน", detail: "ลงยา", speak: "ว แหวน สวยจัง" },
+          { char: "ศ", emoji: "🌟", word: "ศ ศาลา", detail: "ที่พักริมทาง", speak: "ศ ศาลา น่าพัก" },
+          { char: "ษ", emoji: "🦅", word: "ษ ฤๅษี", detail: "นักบวชในป่า", speak: "ษ ฤๅษี ผู้สงบ" },
           { char: "ส", emoji: "🐯", word: "ส เสือ", detail: "ดาวคะนอง", speak: "ส เสือ ลายสวย" },
           { char: "ห", emoji: "📦", word: "ห หีบ", detail: "ใส่ผ้า", speak: "ห หีบ ใส่สมบัติ" },
+          { char: "ฬ", emoji: "🪁", word: "ฬ จุฬา", detail: "ว่าวลอยบนฟ้า", speak: "ฬ จุฬา ลอยลม" },
           { char: "อ", emoji: "🥣", word: "อ อ่าง", detail: "เนืองนอง", speak: "อ อ่าง ใส่น้ำ" },
           { char: "ฮ", emoji: "🦉", word: "ฮ นกฮูก", detail: "ตาโต", speak: "ฮ นกฮูก ตาโต๊โต" }
         ]
@@ -1454,6 +1634,7 @@
        -------------------------------------------------------------------------- */
     let writingSubjectKey = 'thai';
     let writingCharIndex = 0;
+    let writingPracticeIndices = [];
     let currentColor = '#FF4D6D';
     let isEraserMode = false;
 
@@ -1463,7 +1644,58 @@
     const ctxFree = canvasFree.getContext('2d');
 
     const traceGuideChar = document.getElementById('traceGuideChar');
+    const traceGuidePath = document.getElementById('traceGuidePath');
     const currentCharLabel = document.getElementById('currentCharLabel');
+    const cellGuideChars = document.querySelectorAll('.cell-guide-char text');
+    const characterQuickGrid = document.getElementById('characterQuickGrid');
+    const characterSetGrid = document.getElementById('characterSetGrid');
+    const customSetPanel = document.getElementById('customSetPanel');
+    const characterSetCount = document.getElementById('characterSetCount');
+
+    function resetWritingPracticeSet() {
+      writingPracticeIndices = LESSONS[writingSubjectKey].items.map((item, index) => index);
+    }
+
+    function renderCharacterPickers() {
+      const items = LESSONS[writingSubjectKey].items;
+      characterQuickGrid.innerHTML = '';
+      characterSetGrid.innerHTML = '';
+
+      items.forEach((item, index) => {
+        const quickButton = document.createElement('button');
+        quickButton.type = 'button';
+        quickButton.className = 'character-quick-btn';
+        quickButton.textContent = item.char;
+        quickButton.title = `${item.char} ${item.word || ''}`;
+        quickButton.addEventListener('pointerdown', () => {
+          writingCharIndex = index;
+          renderWritingCharacter();
+        });
+        characterQuickGrid.appendChild(quickButton);
+
+        const setButton = document.createElement('button');
+        setButton.type = 'button';
+        setButton.className = 'character-set-btn';
+        setButton.textContent = item.char;
+        setButton.dataset.index = index;
+        setButton.addEventListener('pointerdown', () => {
+          setButton.classList.toggle('selected');
+        });
+        characterSetGrid.appendChild(setButton);
+      });
+
+      syncCharacterPickerState();
+    }
+
+    function syncCharacterPickerState() {
+      characterQuickGrid.querySelectorAll('.character-quick-btn').forEach((button, index) => {
+        button.classList.toggle('active', index === writingCharIndex);
+      });
+      characterSetGrid.querySelectorAll('.character-set-btn').forEach(button => {
+        button.classList.toggle('selected', writingPracticeIndices.includes(Number(button.dataset.index)));
+      });
+      characterSetCount.textContent = `ชุดปัจจุบัน ${writingPracticeIndices.length} ตัว`;
+    }
 
     // จัดการขนาด Canvas ให้คมกริบแบบ Retina Display (DPR 2x บน iPad)
     function setupRetinaCanvas(c, ctx) {
@@ -1488,7 +1720,13 @@
       const item = subject.items[writingCharIndex];
 
       traceGuideChar.textContent = item.char;
+      traceGuidePath.style.display = 'none';
+      traceGuideChar.style.display = 'block';
+      cellGuideChars.forEach(guideChar => {
+        guideChar.textContent = item.char;
+      });
       currentCharLabel.textContent = `${item.char} ${item.word || ''} ${item.emoji || ''}`;
+      syncCharacterPickerState();
 
       // เคลียร์ลายเส้นเดิม
       clearWritingBoard();
@@ -1926,6 +2164,8 @@
     function openWritingStudio(subjectKey = 'thai') {
       writingSubjectKey = subjectKey;
       writingCharIndex = 0;
+      resetWritingPracticeSet();
+      renderCharacterPickers();
 
       homeView.classList.add('hidden');
       thaiGameView.classList.add('hidden');
@@ -2056,6 +2296,8 @@
           tab.classList.add('active');
           writingSubjectKey = tab.dataset.wsubject;
           writingCharIndex = 0;
+          resetWritingPracticeSet();
+          renderCharacterPickers();
           renderWritingCharacter();
         });
       });
@@ -2064,14 +2306,34 @@
       document.getElementById('btnNextWriteChar').addEventListener('pointerdown', () => {
         playWarmMallet(659.25);
         const subject = LESSONS[writingSubjectKey];
-        writingCharIndex = (writingCharIndex + 1) % subject.items.length;
+        const currentSetPosition = writingPracticeIndices.indexOf(writingCharIndex);
+        const nextSetPosition = (currentSetPosition + 1) % writingPracticeIndices.length;
+        writingCharIndex = writingPracticeIndices[nextSetPosition];
         renderWritingCharacter();
       });
 
       document.getElementById('btnPrevWriteChar').addEventListener('pointerdown', () => {
         playWarmMallet(523.25);
         const subject = LESSONS[writingSubjectKey];
-        writingCharIndex = (writingCharIndex - 1 + subject.items.length) % subject.items.length;
+        const currentSetPosition = writingPracticeIndices.indexOf(writingCharIndex);
+        const previousSetPosition = (currentSetPosition - 1 + writingPracticeIndices.length) % writingPracticeIndices.length;
+        writingCharIndex = writingPracticeIndices[previousSetPosition];
+        renderWritingCharacter();
+      });
+
+      document.getElementById('btnToggleSetPicker').addEventListener('pointerdown', () => {
+        customSetPanel.classList.toggle('hidden');
+      });
+
+      document.getElementById('btnApplyCharacterSet').addEventListener('pointerdown', () => {
+        const selectedIndices = [...characterSetGrid.querySelectorAll('.character-set-btn.selected')]
+          .map(button => Number(button.dataset.index));
+        if (!selectedIndices.length) return;
+        writingPracticeIndices = selectedIndices;
+        if (!writingPracticeIndices.includes(writingCharIndex)) {
+          writingCharIndex = writingPracticeIndices[0];
+        }
+        customSetPanel.classList.add('hidden');
         renderWritingCharacter();
       });
 
