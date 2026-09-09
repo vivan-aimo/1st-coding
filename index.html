@@ -12,12 +12,11 @@
 
   <style>
     /* ==========================================================================
-       🌈 3D CANDY PLAYGROUND DESIGN SYSTEM (สำหรับเด็ก 3 ขวบ & จอ iPad)
+       🌈 3D CANDY PLAYGROUND DESIGN SYSTEM
        ========================================================================== */
     :root {
       --bg-sky: linear-gradient(180deg, #A1E5FF 0%, #E2F6FF 40%, #FFF5EB 75%, #FFE3EB 100%);
       
-      /* Card 3D Candy Colors */
       --thai-front: #FF6B8B;
       --thai-back: #D6336C;
       --thai-shadow: rgba(214, 51, 108, 0.4);
@@ -57,13 +56,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem 1rem;
+      padding: 1rem;
       position: relative;
     }
 
-    /* --------------------------------------------------------------------------
-       ☀️ พระอาทิตย์ยิ้มแฉ่ง เมฆลอย และลูกโป่ง (Cartoon World Background)
-       -------------------------------------------------------------------------- */
+    /* ฉากหลังการ์ตูน */
     .sky-decorations {
       position: fixed;
       inset: 0;
@@ -72,7 +69,6 @@
       overflow: hidden;
     }
 
-    /* พระอาทิตย์การ์ตูน */
     .cartoon-sun {
       position: absolute;
       top: 15px;
@@ -95,43 +91,18 @@
       animation: faceStayStill 16s linear infinite reverse;
     }
 
-    @keyframes rotateSunRays {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    @keyframes faceStayStill {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(-360deg); }
-    }
+    @keyframes rotateSunRays { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes faceStayStill { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
 
-    /* เมฆการ์ตูน 3D นุ่มฟู */
     .cloud-pill {
       position: absolute;
       background: #FFFFFF;
       border-radius: 50px;
       box-shadow: 0 8px 20px rgba(0, 140, 255, 0.12), inset 0 -4px 0 #E3FAFC;
     }
-    .cloud-1 {
-      top: 30px;
-      left: -20px;
-      width: 150px;
-      height: 50px;
-      animation: driftClouds 22s infinite linear;
-    }
-    .cloud-2 {
-      top: 85px;
-      right: 120px;
-      width: 180px;
-      height: 60px;
-      animation: driftClouds 28s infinite linear reverse;
-    }
-    .cloud-3 {
-      bottom: 60px;
-      left: 40px;
-      width: 160px;
-      height: 55px;
-      animation: driftClouds 25s infinite linear;
-    }
+    .cloud-1 { top: 25px; left: -20px; width: 140px; height: 45px; animation: driftClouds 22s infinite linear; }
+    .cloud-2 { top: 80px; right: 120px; width: 170px; height: 55px; animation: driftClouds 28s infinite linear reverse; }
+    .cloud-3 { bottom: 50px; left: 40px; width: 150px; height: 50px; animation: driftClouds 25s infinite linear; }
 
     @keyframes driftClouds {
       0% { transform: translateX(0); }
@@ -139,40 +110,72 @@
       100% { transform: translateX(0); }
     }
 
-    /* ลูกโป่งลอย */
     .floating-balloon {
       position: absolute;
-      font-size: 3rem;
+      font-size: 2.8rem;
       animation: floatUpAndSway 7s infinite ease-in-out;
     }
     .balloon-1 { left: 4%; bottom: 15%; animation-delay: 0s; }
-    .balloon-2 { right: 5%; bottom: 25%; animation-delay: 2.5s; font-size: 2.6rem; }
+    .balloon-2 { right: 5%; bottom: 25%; animation-delay: 2.5s; font-size: 2.4rem; }
 
     @keyframes floatUpAndSway {
       0%, 100% { transform: translateY(0) rotate(-6deg); }
-      50% { transform: translateY(-30px) rotate(6deg); }
+      50% { transform: translateY(-25px) rotate(6deg); }
     }
 
     /* --------------------------------------------------------------------------
-       🎪 MAIN APP WRAPPER (เน้น iPad แนวนอน)
+       VIEW SWITCHING (HOME / FLASHCARD / THAI MATCHING / WRITING STUDIO)
        -------------------------------------------------------------------------- */
-    .app-playground {
+    .view-container {
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 1120px;
+      max-width: 1140px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.4rem;
+      gap: 1.1rem;
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
-    /* Header & Mascot */
+    .view-container.hidden {
+      display: none !important;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ปุ่ม Action สไตล์ Toy Button */
+    .btn-action-round {
+      background: #FFFFFF;
+      border: 4px solid #FFD43B;
+      border-radius: 50px;
+      padding: 0.55rem 1.3rem;
+      font-family: var(--font-th);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #2D3436;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.1), 0 4px 0 #FAB005;
+      cursor: pointer;
+      touch-action: manipulation;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+    }
+    .btn-action-round:active { transform: translateY(3px); box-shadow: 0 1px 0 #FAB005; }
+
+    .btn-pink-outline { border-color: #FF6B8B; box-shadow: 0 6px 14px rgba(255, 107, 139, 0.2), 0 4px 0 #D6336C; }
+    .btn-blue-outline { border-color: #4D96FF; box-shadow: 0 6px 14px rgba(77, 150, 255, 0.2), 0 4px 0 #1971C2; }
+    .btn-green-outline { border-color: #20BF6B; box-shadow: 0 6px 14px rgba(32, 191, 107, 0.2), 0 4px 0 #0CA678; }
+
+    /* --------------------------------------------------------------------------
+       🏠 1. HOME VIEW STYLES
+       -------------------------------------------------------------------------- */
     .header-banner {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
       text-align: center;
     }
 
@@ -184,7 +187,7 @@
     }
 
     .mascot-avatar {
-      font-size: 3.8rem;
+      font-size: 3.6rem;
       filter: drop-shadow(0 8px 15px rgba(0,0,0,0.15));
       animation: mascotBounce 2s infinite ease-in-out;
       display: inline-block;
@@ -192,8 +195,8 @@
 
     .mascot-bubble {
       position: absolute;
-      top: -12px;
-      right: -130px;
+      top: -10px;
+      right: -135px;
       background: #FFFFFF;
       padding: 0.35rem 0.9rem;
       border-radius: 20px;
@@ -218,45 +221,45 @@
 
     .app-brand-title {
       font-family: var(--font-en);
-      font-size: 3.2rem;
+      font-size: 3rem;
       font-weight: 800;
       letter-spacing: 0.5px;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
       line-height: 1;
     }
 
-    .text-kids {
-      color: #FF5376;
-      text-shadow: 0 5px 0 #C92A2A, 0 10px 20px rgba(255, 83, 118, 0.4);
-    }
-    .text-learning {
-      color: #339AF0;
-      text-shadow: 0 5px 0 #1864AB, 0 10px 20px rgba(51, 154, 240, 0.4);
-    }
-    .text-hub {
-      color: #FCC419;
-      text-shadow: 0 5px 0 #E67700, 0 10px 20px rgba(252, 196, 25, 0.4);
-    }
+    .text-kids { color: #FF5376; text-shadow: 0 5px 0 #C92A2A; }
+    .text-learning { color: #339AF0; text-shadow: 0 5px 0 #1864AB; }
+    .text-hub { color: #FCC419; text-shadow: 0 5px 0 #E67700; }
 
-    .instruction-ribbon {
-      background: #FFFFFF;
-      padding: 0.5rem 1.6rem;
-      border-radius: 30px;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #495057;
-      border: 3px solid #FFD43B;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    /* ปุ่มสตูดิโอฝึกเขียนโดดเด่นที่หน้าแรก */
+    .hero-writing-btn {
+      background: linear-gradient(135deg, #FF6B8B, #FF8E53);
+      border: 4px solid #FFFFFF;
+      border-radius: 50px;
+      padding: 0.75rem 2.2rem;
+      font-family: var(--font-th);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      box-shadow: 0 10px 24px rgba(255, 107, 139, 0.4), 0 5px 0 #D6336C;
+      cursor: pointer;
+      touch-action: manipulation;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
+      transition: all 0.15s ease;
+      animation: pulseWritingBtn 2.4s infinite ease-in-out;
+    }
+    .hero-writing-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #D6336C; }
+
+    @keyframes pulseWritingBtn {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
     }
 
-    /* --------------------------------------------------------------------------
-       🧸 4 JUICY 3D CANDY CARDS (ปุ่มของเล่นหนานุ่ม)
-       -------------------------------------------------------------------------- */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -266,33 +269,26 @@
     }
 
     @media (max-width: 950px) {
-      .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.2rem;
-      }
-      .app-brand-title {
-        font-size: 2.5rem;
-      }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+      .app-brand-title { font-size: 2.4rem; }
     }
 
-    /* 3D Toy Button Card Base */
     .toy-card {
       position: relative;
       border: none;
       outline: none;
-      border-radius: 38px;
-      padding: 1.8rem 1rem 1.4rem;
+      border-radius: 36px;
+      padding: 1.6rem 1rem 1.3rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      min-height: 300px;
+      min-height: 285px;
       cursor: pointer;
       touch-action: manipulation;
       transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    /* แถบแสงสะท้อนมันวาวด้านบน (Glossy highlight) */
     .toy-card::before {
       content: '';
       position: absolute;
@@ -305,41 +301,14 @@
       pointer-events: none;
     }
 
-    /* Theme 1: ภาษาไทย (ชมพู-แดง แคนดี้) */
-    .card-thai {
-      background: var(--thai-front);
-      box-shadow: 0 14px 0 var(--thai-back), 0 24px 30px var(--thai-shadow);
-    }
-    /* Theme 2: English ABC (ฟ้าโอเชี่ยน) */
-    .card-english {
-      background: var(--eng-front);
-      box-shadow: 0 14px 0 var(--eng-back), 0 24px 30px var(--eng-shadow);
-    }
-    /* Theme 3: ตัวเลข 1-10 (เหลืองทองซันไชน์) */
-    .card-numbers {
-      background: var(--num-front);
-      box-shadow: 0 14px 0 var(--num-back), 0 24px 30px var(--num-shadow);
-    }
-    /* Theme 4: ภาษาจีน (เขียวมิ้นต์มรกต) */
-    .card-chinese {
-      background: var(--chi-front);
-      box-shadow: 0 14px 0 var(--chi-back), 0 24px 30px var(--chi-shadow);
-    }
+    .card-thai { background: var(--thai-front); box-shadow: 0 14px 0 var(--thai-back), 0 22px 28px var(--thai-shadow); }
+    .card-english { background: var(--eng-front); box-shadow: 0 14px 0 var(--eng-back), 0 22px 28px var(--eng-shadow); }
+    .card-numbers { background: var(--num-front); box-shadow: 0 14px 0 var(--num-back), 0 22px 28px var(--num-shadow); }
+    .card-chinese { background: var(--chi-front); box-shadow: 0 14px 0 var(--chi-back), 0 22px 28px var(--chi-shadow); }
 
-    /* เอฟเฟกต์กดปุ่ม 3D จมลงไปเหมือนกดของเล่น */
-    .toy-card:hover {
-      transform: translateY(-8px);
-    }
-    .toy-card:active,
-    .toy-card.pressed {
-      transform: translateY(12px) scale(0.97) !important;
-    }
-    .card-thai:active, .card-thai.pressed { box-shadow: 0 2px 0 var(--thai-back), 0 8px 15px var(--thai-shadow); }
-    .card-english:active, .card-english.pressed { box-shadow: 0 2px 0 var(--eng-back), 0 8px 15px var(--eng-shadow); }
-    .card-numbers:active, .card-numbers.pressed { box-shadow: 0 2px 0 var(--num-back), 0 8px 15px var(--num-shadow); }
-    .card-chinese:active, .card-chinese.pressed { box-shadow: 0 2px 0 var(--chi-back), 0 8px 15px var(--chi-shadow); }
+    .toy-card:hover { transform: translateY(-7px); }
+    .toy-card:active, .toy-card.pressed { transform: translateY(12px) scale(0.97) !important; }
 
-    /* ป้ายหัวการ์ด (Badge) */
     .badge-pill {
       background: rgba(255, 255, 255, 0.95);
       padding: 0.35rem 1rem;
@@ -351,45 +320,38 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     }
 
-    /* ตัวการ์ตูนรูปภาพตรงกลาง ใหญ่สะใจ */
     .card-visual {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       margin: 0.5rem 0;
-      position: relative;
     }
 
     .main-emoji {
-      font-size: 5rem;
+      font-size: 4.8rem;
       line-height: 1;
       filter: drop-shadow(0 10px 14px rgba(0,0,0,0.18));
       transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .toy-card:hover .main-emoji {
-      transform: scale(1.22) rotate(8deg);
-    }
+    .toy-card:hover .main-emoji { transform: scale(1.2) rotate(8deg); }
 
     .letter-hero {
       font-size: 2.2rem;
       font-weight: 800;
       color: #FFFFFF;
-      text-shadow: 0 3px 0 rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.2);
+      text-shadow: 0 3px 0 rgba(0,0,0,0.25);
       margin-top: -0.2rem;
     }
 
-    /* ชื่อวิชาด้านล่าง */
     .card-label {
-      font-size: 1.7rem;
+      font-size: 1.65rem;
       font-weight: 800;
       color: #FFFFFF;
       text-shadow: 0 2px 0 rgba(0,0,0,0.25);
-      letter-spacing: 0.5px;
     }
 
-    /* ปุ่มเล็กสีขาวข้างใน "แตะเลย" */
     .tap-bubble {
       background: #FFFFFF;
       color: #212529;
@@ -398,54 +360,519 @@
       padding: 0.35rem 1.1rem;
       border-radius: 20px;
       box-shadow: 0 4px 0 rgba(0,0,0,0.12);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
       margin-top: 0.3rem;
     }
 
     /* --------------------------------------------------------------------------
-       🔊 LIVE FEEDBACK FOOTER & STARS
+       ✏️ 2. HANDWRITING & TRACING STUDIO (หน้าจอฝึกเขียนด้วย Apple Pencil)
+       -------------------------------------------------------------------------- */
+    .studio-nav-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .subject-selector-pills {
+      display: flex;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.8);
+      padding: 0.35rem 0.6rem;
+      border-radius: 30px;
+      border: 2px solid #E2E8F0;
+    }
+
+    .btn-subject-tab {
+      border: none;
+      background: transparent;
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      font-family: var(--font-th);
+      font-size: 1rem;
+      font-weight: 800;
+      color: #718096;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-subject-tab.active {
+      background: #FF6B8B;
+      color: #FFFFFF;
+      box-shadow: 0 4px 10px rgba(255, 107, 139, 0.3);
+    }
+
+    /* ลานกระดานคู่สำหรับฝึกเขียน */
+    .studio-stage {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 850px) {
+      .studio-stage { grid-template-columns: 1fr; }
+    }
+
+    .writing-board-card {
+      position: relative;
+      background: #FFFFFF;
+      border-radius: 36px;
+      padding: 1.2rem;
+      border: 4px solid #FFFFFF;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.08), inset 0 3px 0 rgba(255,255,255,0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .board-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 0.5rem;
+    }
+
+    .board-title-tag {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #495057;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* กระดาน Canvas วาดเส้น (Touch-action none สำคัญมากสำหรับ Apple Pencil) */
+    .canvas-wrapper {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      background: #FAFAFA;
+      border-radius: 26px;
+      border: 3px dashed #CBD5E0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* เลเยอร์แม่แบบลายเส้นประอยู่ข้างใต้ */
+    .guide-underlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ตัวอักษรเส้นประขนาดใหญ่บึ้ม */
+    .dashed-trace-char {
+      font-size: 14rem;
+      font-weight: 800;
+      line-height: 1;
+      color: rgba(255, 107, 139, 0.18);
+      -webkit-text-stroke: 4px #A0AEC0;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+    }
+
+    .trace-start-bubble {
+      position: absolute;
+      top: 18%;
+      left: 32%;
+      font-size: 1.8rem;
+      animation: pulseStart 1.5s infinite alternate;
+    }
+
+    @keyframes pulseStart {
+      from { transform: scale(1); }
+      to { transform: scale(1.3); }
+    }
+
+    /* เส้นบรรทัดคัดลายมือระดับอนุบาล */
+    .kindergarten-lines {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      pointer-events: none;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .guide-line {
+      width: 100%;
+      height: 2px;
+      background: #E2E8F0;
+    }
+    .guide-line.dashed-middle {
+      border-top: 2px dashed #94A3B8;
+      background: transparent;
+    }
+
+    /* เลเยอร์วาดเส้นจริงด้วย Apple Pencil */
+    .drawing-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      touch-action: none !important; /* ป้องกัน gesture รบกวนหัวปากกาบน iPad */
+      cursor: crosshair;
+      z-index: 10;
+    }
+
+    /* แถบเครื่องมือและถาดดินสอสี */
+    .studio-toolbar {
+      width: 100%;
+      background: #FFFFFF;
+      border-radius: 36px;
+      padding: 0.8rem 1.6rem;
+      border: 4px solid #FFD43B;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .palette-box {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .color-swatch-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 4px solid #FFFFFF;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 0.15s ease;
+    }
+    .color-swatch-btn.active {
+      transform: scale(1.3);
+      box-shadow: 0 0 14px rgba(0,0,0,0.3);
+      border-color: #2D3436;
+    }
+
+    .nav-char-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .current-char-pill {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #D6336C;
+      background: #FFF0F5;
+      border: 3px solid #FF6B8B;
+      padding: 0.35rem 1.2rem;
+      border-radius: 20px;
+    }
+
+    /* --------------------------------------------------------------------------
+       🎯 3. THAI LINE MATCHING GAME STYLES
+       -------------------------------------------------------------------------- */
+    .game-nav-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .game-title-pill {
+      background: #FFFFFF;
+      padding: 0.55rem 1.6rem;
+      border-radius: 30px;
+      border: 4px solid #FF6B8B;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #D6336C;
+      box-shadow: 0 8px 16px rgba(214, 51, 108, 0.25);
+    }
+
+    .match-arena {
+      position: relative;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.65);
+      border: 4px solid #FFFFFF;
+      border-radius: 40px;
+      padding: 1.2rem 1.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 490px;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    #matchingCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .match-column {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      z-index: 20;
+      width: 44%;
+    }
+
+    .match-item-card {
+      position: relative;
+      background: #FFFFFF;
+      border-radius: 26px;
+      padding: 0.6rem 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 64px;
+      cursor: pointer;
+      touch-action: manipulation;
+      border: 3px solid #E2E8F0;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06), 0 4px 0 #CBD5E0;
+      transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .match-item-card.is-selected {
+      border-color: #FFB703;
+      background: #FFF9DB;
+      box-shadow: 0 0 20px rgba(255, 183, 3, 0.6), 0 4px 0 #F59F00;
+      transform: scale(1.04);
+    }
+
+    .match-item-card.is-matched {
+      border-color: #20BF6B;
+      background: #EBFBEE;
+      box-shadow: 0 4px 10px rgba(32, 191, 107, 0.2), 0 3px 0 #0CA678;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .card-char-big { font-size: 2.8rem; font-weight: 800; color: #D6336C; line-height: 1; }
+    .card-char-label { font-size: 1.15rem; font-weight: 700; color: #495057; margin-left: 0.5rem; }
+
+    .card-picture-only-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+    .card-picture-emoji {
+      font-size: 3.3rem;
+      line-height: 1;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15));
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .match-item-card:hover .card-picture-emoji { transform: scale(1.22) rotate(6deg); }
+
+    .connect-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #CBD5E0;
+      border: 4px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .match-item-card.is-selected .connect-dot { background: #FFB703; transform: scale(1.3); }
+    .match-item-card.is-matched .connect-dot { background: #20BF6B; transform: scale(1.1); }
+
+    .celebration-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.94);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      border-radius: 36px;
+      animation: popInModal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .celebration-overlay.hidden { display: none !important; }
+
+    .celeb-emojis { font-size: 4.5rem; animation: mascotBounce 1.2s infinite ease-in-out; }
+    .celeb-heading { font-size: 2.8rem; font-weight: 800; color: #D6336C; text-align: center; }
+    .celeb-subtext { font-size: 1.4rem; font-weight: 700; color: #495057; text-align: center; }
+
+    .btn-next-round {
+      background: #20BF6B;
+      border: 4px solid #FFFFFF;
+      border-radius: 50px;
+      padding: 0.9rem 2.4rem;
+      font-family: var(--font-th);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      box-shadow: 0 10px 24px rgba(32, 191, 107, 0.4), 0 5px 0 #0CA678;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .btn-next-round:active { transform: translateY(4px); }
+
+    /* --------------------------------------------------------------------------
+       📖 4. FLASHCARD EXPLORER VIEW STYLES
+       -------------------------------------------------------------------------- */
+    .flashcard-nav-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .view-title-pill {
+      background: #FFFFFF;
+      padding: 0.6rem 1.6rem;
+      border-radius: 30px;
+      border: 4px solid #4D96FF;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1971C2;
+      box-shadow: 0 8px 16px rgba(77, 150, 255, 0.2);
+    }
+
+    .single-card-stage {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin: 0.5rem 0;
+    }
+
+    .nav-arrow-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: none;
+      background: #FFFFFF;
+      font-size: 2.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12), 0 5px 0 #E2E8F0;
+      color: #2D3436;
+      transition: all 0.15s ease;
+    }
+    .nav-arrow-btn:active { transform: translateY(4px); }
+
+    .jumbo-flashcard {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      min-height: 420px;
+      border-radius: 46px;
+      padding: 2.2rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      touch-action: manipulation;
+      border: none;
+      outline: none;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .jumbo-index-badge {
+      background: rgba(255,255,255,0.92);
+      font-size: 1.15rem;
+      font-weight: 800;
+      padding: 0.35rem 1.2rem;
+      border-radius: 20px;
+      color: #2D3436;
+    }
+
+    .jumbo-char { font-size: 6.5rem; font-weight: 800; color: #FFFFFF; line-height: 1; }
+    .jumbo-emoji { font-size: 6rem; }
+    .jumbo-word { font-size: 2.4rem; font-weight: 800; color: #FFFFFF; }
+    .jumbo-subdetail { font-size: 1.4rem; font-weight: 700; color: #FFFFFF; background: rgba(0,0,0,0.12); padding: 0.3rem 1.2rem; border-radius: 20px; }
+
+    .jumbo-speaker-pill {
+      background: #FFFFFF;
+      color: #2D3436;
+      font-size: 1.25rem;
+      font-weight: 800;
+      padding: 0.6rem 1.6rem;
+      border-radius: 30px;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .grid-soundboard {
+      display: none;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1rem;
+      width: 100%;
+      max-height: 480px;
+      overflow-y: auto;
+      padding: 0.8rem;
+      background: rgba(255,255,255,0.6);
+      border-radius: 36px;
+      border: 3px solid #E2E8F0;
+    }
+
+    .tile-mini-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 1rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06), 0 3px 0 #CBD5E0;
+    }
+    .tile-char { font-size: 2rem; font-weight: 800; }
+    .tile-emoji { font-size: 2.2rem; }
+
+    /* --------------------------------------------------------------------------
+       🔊 FOOTER CONSOLE & COMMON STYLES
        -------------------------------------------------------------------------- */
     .footer-console {
       width: 100%;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     .speech-bubble-guide {
       background: #FFFFFF;
       border: 4px solid #4D96FF;
       border-radius: 40px;
-      padding: 1rem 2.2rem;
-      font-size: 1.35rem;
+      padding: 0.8rem 2rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: #2D3436;
-      box-shadow: 0 12px 25px rgba(77, 150, 255, 0.2), inset 0 -4px 0 #E2E8F0;
+      box-shadow: 0 10px 22px rgba(77, 150, 255, 0.2);
       display: inline-flex;
       align-items: center;
-      gap: 0.8rem;
-      animation: pulseGuide 3s infinite ease-in-out;
+      gap: 0.6rem;
       text-align: center;
     }
 
-    @keyframes pulseGuide {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.025); }
-    }
-
-    .guide-speaker {
-      font-size: 1.8rem;
-      animation: wiggleSpeaker 1.5s infinite;
-    }
-
-    @keyframes wiggleSpeaker {
-      0%, 100% { transform: rotate(0); }
-      25% { transform: rotate(-12deg); }
-      75% { transform: rotate(12deg); }
-    }
-
-    /* เอฟเฟกต์ดาววิบวับเมื่อแตะ (Burst Star Particles) */
     .star-particle {
       position: fixed;
       pointer-events: none;
@@ -453,22 +880,15 @@
       z-index: 9999;
       animation: flyStar 0.8s forwards ease-out;
     }
-
     @keyframes flyStar {
-      0% {
-        transform: translate(0, 0) scale(0.5) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translate(var(--dx), var(--dy)) scale(1.6) rotate(360deg);
-        opacity: 0;
-      }
+      0% { transform: translate(0, 0) scale(0.5) rotate(0deg); opacity: 1; }
+      100% { transform: translate(var(--dx), var(--dy)) scale(1.6) rotate(360deg); opacity: 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ท้องฟ้าการ์ตูน มีเมฆ มีพระอาทิตย์ยิ้มแฉ่ง และลูกโป่ง -->
+  <!-- ฉากหลังการ์ตูน -->
   <div class="sky-decorations">
     <div class="cartoon-sun"></div>
     <div class="cloud-pill cloud-1"></div>
@@ -478,8 +898,10 @@
     <div class="floating-balloon balloon-2">🦄</div>
   </div>
 
-  <main class="app-playground">
-    <!-- Header หัวเรื่องสุดตระการตา -->
+  <!-- =========================================================================
+       🏠 VIEW 1: HOME SCREEN
+       ========================================================================= -->
+  <main class="view-container" id="homeView">
     <header class="header-banner">
       <div class="mascot-wrapper" id="mascotBtn" title="แตะทักทายพี่สิงโต!">
         <span class="mascot-avatar">🦁</span>
@@ -492,25 +914,24 @@
         <span class="text-hub">Hub</span>
       </h1>
 
-      <div class="instruction-ribbon">
-        <span>✨</span>
-        <span>หนูน้อยจ๋า... แตะเลือกบทเรียนสนุกๆ ได้เลย!</span>
-        <span>🚀</span>
-      </div>
+      <!-- ปุ่มเข้าสตูดิโอฝึกเขียนด้วย Apple Pencil -->
+      <button class="hero-writing-btn" id="btnHeroWriting">
+        <span>✏️</span>
+        <span>กระดานฝึกเขียน & ลากเส้นประ (Apple Pencil)</span>
+        <span>🖍️</span>
+      </button>
     </header>
 
-    <!-- การ์ดของเล่น 3D ยักษ์ 4 ใบ -->
     <section class="cards-grid" aria-label="หมวดวิชา">
-      
       <!-- 1. ภาษาไทย -->
       <button class="toy-card card-thai" data-subject="thai" id="btn-thai">
-        <div class="badge-pill">🇹🇭 ก - ฮ</div>
+        <div class="badge-pill">🇹🇭 โยงเส้น ก - ฮ</div>
         <div class="card-visual">
           <span class="main-emoji">🐥</span>
-          <span class="letter-hero">ก ไก่</span>
+          <span class="letter-hero">เกมจับคู่</span>
         </div>
-        <div class="card-label">ภาษาไทย</div>
-        <div class="tap-bubble">👉 แตะเล่นเลย!</div>
+        <div class="card-label">ภาษาไทยแสนสนุก</div>
+        <div class="tap-bubble">👉 แตะโยงเส้นเลย!</div>
       </button>
 
       <!-- 2. ภาษาอังกฤษ -->
@@ -521,7 +942,7 @@
           <span class="letter-hero">Aa</span>
         </div>
         <div class="card-label">English ABC</div>
-        <div class="tap-bubble">👉 Let's Play!</div>
+        <div class="tap-bubble">👉 Let's Learn!</div>
       </button>
 
       <!-- 3. ตัวเลข 1-10 -->
@@ -532,7 +953,7 @@
           <span class="letter-hero">1 ๑</span>
         </div>
         <div class="card-label">ตัวเลขแสนสนุก</div>
-        <div class="tap-bubble">👉 นับเลขกัน!</div>
+        <div class="tap-bubble">👉 มานับเลขกัน!</div>
       </button>
 
       <!-- 4. ภาษาจีนขั้นต้น -->
@@ -540,189 +961,1242 @@
         <div class="badge-pill">🇨🇳 一 ถึง 十</div>
         <div class="card-visual">
           <span class="main-emoji">🐼</span>
-          <span class="letter-hero">一 (อี)</span>
+          <span class="letter-hero">一 (yī)</span>
         </div>
         <div class="card-label">ภาษาจีนพื้นฐาน</div>
         <div class="tap-bubble">👉 มาเรียนจีน!</div>
       </button>
-
     </section>
 
-    <!-- แถบเสียงและไกด์นำทางด้านล่าง -->
     <footer class="footer-console">
-      <div class="speech-bubble-guide" id="guideBar">
+      <div class="speech-bubble-guide" id="homeGuideMessage">
         <span class="guide-speaker">📢</span>
-        <span id="guideMessage">สวัสดีจ้าคนเก่ง! วันนี้เราอยากเล่นวิชาไหนกันดีเอ่ย? 💕</span>
+        <span>สวัสดีจ้าคนเก่ง! วันนี้เราอยากเล่นหรือฝึกเขียนวิชาไหนดีเอ่ย? 💕</span>
       </div>
     </footer>
   </main>
 
-  <script>
-    /* ==========================================================================
-       🔊 ระบบเสียงของเล่นเด็ก (Toy Sound Engine & Speech Synthesizer)
-       ========================================================================== */
-    let audioCtx = null;
 
+  <!-- =========================================================================
+       ✏️ VIEW 2: HANDWRITING & TRACING STUDIO (กระดานคู่ฝึกเขียนด้วย Apple Pencil)
+       ========================================================================= -->
+  <main class="view-container hidden" id="writingView">
+    <header class="studio-nav-bar">
+      <button class="btn-action-round" id="btnWritingHome">
+        <span>🏠</span>
+        <span>หน้าหลัก</span>
+      </button>
+
+      <!-- เลือกหมวดวิชาที่จะฝึกเขียน -->
+      <div class="subject-selector-pills">
+        <button class="btn-subject-tab active" data-wsubject="thai">🇹🇭 ไทย (ก-ฮ)</button>
+        <button class="btn-subject-tab" data-wsubject="english">🇬🇧 อังกฤษ (A-Z)</button>
+        <button class="btn-subject-tab" data-wsubject="numbers">🔢 ตัวเลข (1-10)</button>
+        <button class="btn-subject-tab" data-wsubject="chinese">🇨🇳 จีน (一 到 十)</button>
+      </div>
+
+      <div style="display: flex; gap: 0.6rem;">
+        <button class="btn-action-round btn-pink-outline" id="btnSpeakChar" title="ฟังเสียงอ่าน">
+          <span>🔊</span>
+          <span>ฟังเสียง</span>
+        </button>
+        <button class="btn-action-round btn-blue-outline" id="btnClearBothCanvas" title="ล้างกระดาน">
+          <span>🗑️</span>
+          <span>ล้างกระดาน</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ลานกระดานคู่: ซ้ายตามรอยประ / ขวาเขียนอิสระ -->
+    <section class="studio-stage">
+      <!-- กระดานฝั่งซ้าย: ลากเส้นตามรอยประ (Tracing Pad) -->
+      <div class="writing-board-card">
+        <div class="board-header">
+          <span class="board-title-tag">📝 ลากเส้นตามรอยประ</span>
+          <span style="font-size: 0.95rem; font-weight: 700; color: #718096;">เริ่มจากจุด 🟢 น้าา</span>
+        </div>
+        <div class="canvas-wrapper" id="traceWrapper">
+          <div class="guide-underlay">
+            <div class="dashed-trace-char" id="traceGuideChar">ก</div>
+            <div class="trace-start-bubble">🟢</div>
+          </div>
+          <canvas class="drawing-canvas" id="canvasTrace"></canvas>
+        </div>
+      </div>
+
+      <!-- กระดานฝั่งขวา: ช่องว่างฝึกเขียนเอง (Freehand Writing Pad) -->
+      <div class="writing-board-card">
+        <div class="board-header">
+          <span class="board-title-tag">✏️ ฝึกเขียนเองตามใจชอบ</span>
+          <span style="font-size: 0.95rem; font-weight: 700; color: #20BF6B;">ใช้ Apple Pencil หรือนิ้วมือได้เลย</span>
+        </div>
+        <div class="canvas-wrapper" id="freeWrapper">
+          <div class="kindergarten-lines">
+            <div class="guide-line"></div>
+            <div class="guide-line dashed-middle"></div>
+            <div class="guide-line"></div>
+          </div>
+          <canvas class="drawing-canvas" id="canvasFree"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- แถบเครื่องมือ: ถาดดินสอสี ยางลบ และปุ่มเลื่อนตัวอักษร -->
+    <footer class="studio-toolbar">
+      <!-- ถาดดินสอสี 5 สี + ยางลบ -->
+      <div class="palette-box">
+        <span style="font-size: 1.1rem; font-weight: 800; color: #495057;">🖍️ ดินสอสี:</span>
+        <button class="color-swatch-btn active" data-color="#FF4D6D" style="background: #FF4D6D;" title="สีชมพูแคนดี้"></button>
+        <button class="color-swatch-btn" data-color="#3A86FF" style="background: #3A86FF;" title="สีฟ้าสดใส"></button>
+        <button class="color-swatch-btn" data-color="#38B000" style="background: #38B000;" title="สีเขียวมรกต"></button>
+        <button class="color-swatch-btn" data-color="#FF9E00" style="background: #FF9E00;" title="สีส้มซันไชน์"></button>
+        <button class="color-swatch-btn" data-color="#7209B7" style="background: #7209B7;" title="สีม่วงองุ่น"></button>
+        <button class="btn-action-round" id="btnEraser" style="padding: 0.4rem 1rem; font-size: 1.05rem;">
+          <span>🧼</span>
+          <span>ยางลบ</span>
+        </button>
+      </div>
+
+      <!-- ปุ่มเลื่อนตัวอักษร ◀️ ตัวปัจจุบัน ▶️ -->
+      <div class="nav-char-controls">
+        <button class="nav-arrow-btn" id="btnPrevWriteChar" style="width: 58px; height: 58px; font-size: 1.8rem;" title="ตัวก่อนหน้า">◀️</button>
+        <div class="current-char-pill" id="currentCharLabel">ก ไก่ 🐔</div>
+        <button class="nav-arrow-btn" id="btnNextWriteChar" style="width: 58px; height: 58px; font-size: 1.8rem;" title="ตัวถัดไป">▶️</button>
+      </div>
+    </footer>
+  </main>
+
+
+  <!-- =========================================================================
+       🎯 VIEW 3: THAI LINE MATCHING GAME
+       ========================================================================= -->
+  <main class="view-container hidden" id="thaiGameView">
+    <header class="game-nav-bar">
+      <button class="btn-action-round" id="btnThaiHome">
+        <span>🏠</span>
+        <span>หน้าหลัก</span>
+      </button>
+
+      <div class="game-title-pill">
+        🇹🇭 เกมโยงเส้นจับคู่ ก - ฮ
+      </div>
+
+      <div style="display: flex; gap: 0.6rem;">
+        <button class="btn-action-round btn-pink-outline" id="btnThaiGoWriting">
+          <span>✏️</span>
+          <span>ฝึกเขียน ก-ฮ</span>
+        </button>
+        <button class="btn-action-round btn-blue-outline" id="btnThaiFlashcard">
+          <span>🃏</span>
+          <span>ดูการ์ด</span>
+        </button>
+        <button class="btn-action-round btn-green-outline" id="btnThaiNewGame">
+          <span>🔄</span>
+          <span>สุ่มใหม่</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="match-arena" id="matchArena">
+      <canvas id="matchingCanvas"></canvas>
+      <div class="match-column" id="leftColumnLetters"></div>
+      <div class="match-column" id="rightColumnPictures"></div>
+
+      <div class="celebration-overlay hidden" id="celebOverlay">
+        <div class="celeb-emojis">🎉 🌟 🎈 🥳 💖</div>
+        <h2 class="celeb-heading">เก่งที่สุดเลยคนเก่ง!</h2>
+        <p class="celeb-subtext">หนูน้อยโยงเส้นจับคู่พยัญชนะไทยได้ถูกต้องครบทุกตัวเลยจ้า! ✨</p>
+        <button class="btn-next-round" id="btnCelebNext">
+          🔄 เล่นรอบต่อไป (สุ่มตัวใหม่) 👉
+        </button>
+      </div>
+    </section>
+
+    <footer class="footer-console">
+      <div class="speech-bubble-guide" id="gameGuideBubble">
+        <span class="guide-speaker">💡</span>
+        <span id="gameGuideText">ลากนิ้วจากตัวอักษรไปหารูปภาพ หรือแตะจับคู่ได้เลยจ้า! 🖍️</span>
+      </div>
+    </footer>
+  </main>
+
+
+  <!-- =========================================================================
+       📖 VIEW 4: FLASHCARD LEARNING EXPLORER
+       ========================================================================= -->
+  <main class="view-container hidden" id="flashcardView">
+    <header class="flashcard-nav-bar">
+      <button class="btn-action-round" id="btnBackHome">
+        <span>🏠</span>
+        <span>หน้าหลัก</span>
+      </button>
+
+      <div class="view-title-pill" id="currentSubjectTitle">วิชา</div>
+
+      <div style="display: flex; gap: 0.6rem;">
+        <button class="btn-action-round btn-pink-outline" id="btnFlashcardGoWriting">
+          <span>✏️</span>
+          <span>ฝึกเขียน</span>
+        </button>
+        <div class="mode-toggle-group">
+          <button class="btn-mode active" id="btnModeSingle">🃏 การ์ดยักษ์</button>
+          <button class="btn-mode" id="btnModeGrid">📱 แผงรวม</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="single-card-stage" id="singleCardStage">
+      <button class="nav-arrow-btn" id="btnPrev" title="ย้อนกลับ">◀️</button>
+
+      <button class="jumbo-flashcard card-thai" id="jumboCard">
+        <div class="jumbo-index-badge" id="cardCounter">1 / 44</div>
+        <div class="jumbo-visual-center">
+          <div class="jumbo-char" id="cardChar">ก</div>
+          <div class="jumbo-emoji" id="cardEmoji">🐔</div>
+          <div class="jumbo-word" id="cardWord">ก ไก่</div>
+          <div class="jumbo-subdetail" id="cardSubdetail">พยัญชนะตัวที่ ๑</div>
+        </div>
+        <div class="jumbo-speaker-pill">
+          <span>🔊</span>
+          <span>แตะเพื่อฟังเสียงอีกครั้ง!</span>
+        </div>
+      </button>
+
+      <button class="nav-arrow-btn" id="btnNext" title="ถัดไป">▶️</button>
+    </section>
+
+    <section class="grid-soundboard" id="gridSoundboard"></section>
+
+    <footer class="footer-console">
+      <div class="speech-bubble-guide" id="flashcardGuideMessage">
+        <span class="guide-speaker">💡</span>
+        <span id="flashcardGuideText">แตะที่การ์ดเพื่อฟังเสียงคุณครูอ่านชัดๆ ได้เลยจ้า! 🎵</span>
+      </div>
+    </footer>
+  </main>
+
+
+  <!-- =========================================================================
+       🎮 APP SCRIPTS & CANVAS ENGINES
+       ========================================================================= -->
+  <script>
+    /* --------------------------------------------------------------------------
+       📚 1. CURRICULUM DATASETS
+       -------------------------------------------------------------------------- */
+    const LESSONS = {
+      thai: {
+        title: "🇹🇭 วิชาภาษาไทย (ก - ฮ)",
+        lang: "th-TH",
+        themeClass: "card-thai",
+        items: [
+          { char: "ก", emoji: "🐔", word: "ก ไก่", detail: "เอกอี้เอ้กเอ้ก", speak: "ก ไก่ กุ๊ก กุ๊ก" },
+          { char: "ข", emoji: "🥚", word: "ข ไข่", detail: "อยู่ในเล้า", speak: "ข ไข่ ฟองกลม" },
+          { char: "ฃ", emoji: "🍼", word: "ฃ ขวด", detail: "ของใช้ของเรา", speak: "ขอ ขวด ของเรา" },
+          { char: "ค", emoji: "🐃", word: "ค ควาย", detail: "เข้ายิ้มแฉ่ง", speak: "ค ควาย เขางาม" },
+          { char: "ฅ", emoji: "🧑", word: "ฅ คน", detail: "ขึงขังจริงใจ", speak: "คอ คน ขึงขัง" },
+          { char: "ฆ", emoji: "🔔", word: "ฆ ระฆัง", detail: "ข้างฝา", speak: "ฆ ระฆัง ดังกังวาน" },
+          { char: "ง", emoji: "🐍", word: "ง งู", detail: "ใจกล้า", speak: "ง งู ตัวยาว" },
+          { char: "จ", emoji: "🍽️", word: "จ จาน", detail: "ใช้ดี", speak: "จ จาน ใส่ข้าว" },
+          { char: "ฉ", emoji: "🥁", word: "ฉ ฉิ่ง", detail: "ตีดังฉิ่งฉับ", speak: "ฉ ฉิ่ง ตีดังฉับ" },
+          { char: "ช", emoji: "🐘", word: "ช ช้าง", detail: "วิ่งหนี", speak: "ช ช้าง ตัวใหญ่" },
+          { char: "ซ", emoji: "⛓️", word: "ซ โซ่", detail: "ล่ามที", speak: "ซ โซ่ ผูกไว้" },
+          { char: "ฌ", emoji: "🌳", word: "ฌ กะเฌอ", detail: "คู่กัน", speak: "ฌ กะเฌอ ต้นไม้" },
+          { char: "ญ", emoji: "👧", word: "ญ หญิง", detail: "โสภา", speak: "ญ หญิง น่ารัก" },
+          { char: "ด", emoji: "👶", word: "ด เด็ก", detail: "ต้องนิมนต์", speak: "ด เด็ก คนเก่ง" },
+          { char: "ต", emoji: "🐢", word: "ต เต่า", detail: "หลังตุง", speak: "ต เต่า คลานต้วมเตี้ยม" },
+          { char: "ถ", emoji: "🎒", word: "ถ ถุง", detail: "แบกขน", speak: "ถ ถุง ใส่ของ" },
+          { char: "ท", emoji: "💂", word: "ท ทหาร", detail: "อดทน", speak: "ท ทหาร เข้มแข็ง" },
+          { char: "น", emoji: "🐭", word: "น หนู", detail: "ขวักไขว่", speak: "น หนู ตัวจิ๋ว" },
+          { char: "บ", emoji: "🍃", word: "บ ใบไม้", detail: "ทับถม", speak: "บ ใบไม้ สีเขียว" },
+          { char: "ป", emoji: "🐟", word: "ป ปลา", detail: "ตากลม", speak: "ป ปลา ว่ายน้ำ" },
+          { char: "ผ", emoji: "🐝", word: "ผ ผึ้ง", detail: "ทำรัง", speak: "ผ ผึ้ง หวานฉ่ำ" },
+          { char: "ฝ", emoji: "🛡️", word: "ฝ ฝา", detail: "ทนทาน", speak: "ฝ ฝา ปิดแน่น" },
+          { char: "พ", emoji: "🍇", word: "พ พาน", detail: "วางตั้ง", speak: "พ พาน วางของ" },
+          { char: "ฟ", emoji: "🦷", word: "ฟ ฟัน", detail: "สะอาดจัง", speak: "ฟ ฟัน ขาวสะอาด" },
+          { char: "ม", emoji: "🐎", word: "ม ม้า", detail: "คึกคัก", speak: "ม ม้า วิ่งเร็ว" },
+          { char: "ย", emoji: "👹", word: "ย ยักษ์", detail: "เขี้ยวใหญ่", speak: "ย ยักษ์ ใจดี" },
+          { char: "ร", emoji: "⛵", word: "ร เรือ", detail: "พายไป", speak: "ร เรือ แล่นในน้ำ" },
+          { char: "ล", emoji: "🐒", word: "ล ลิง", detail: "ไต่ราว", speak: "ล ลิง จอมซน" },
+          { char: "ว", emoji: "💍", word: "ว แหวน", detail: "ลงยา", speak: "ว แหวน สวยจัง" },
+          { char: "ส", emoji: "🐯", word: "ส เสือ", detail: "ดาวคะนอง", speak: "ส เสือ ลายสวย" },
+          { char: "ห", emoji: "📦", word: "ห หีบ", detail: "ใส่ผ้า", speak: "ห หีบ ใส่สมบัติ" },
+          { char: "อ", emoji: "🥣", word: "อ อ่าง", detail: "เนืองนอง", speak: "อ อ่าง ใส่น้ำ" },
+          { char: "ฮ", emoji: "🦉", word: "ฮ นกฮูก", detail: "ตาโต", speak: "ฮ นกฮูก ตาโต๊โต" }
+        ]
+      },
+
+      english: {
+        title: "🇬🇧 English ABC (A - Z)",
+        lang: "en-US",
+        themeClass: "card-english",
+        items: [
+          { char: "A", emoji: "🍎", word: "Apple", detail: "แอปเปิ้ลสีแดง", speak: "A! Apple! Red apple!" },
+          { char: "B", emoji: "🐻", word: "Bear", detail: "พี่หมีใจดี", speak: "B! Bear! Big teddy bear!" },
+          { char: "C", emoji: "🐱", word: "Cat", detail: "แมวเหมียว", speak: "C! Cat! Cute kitty cat!" },
+          { char: "D", emoji: "🐶", word: "Dog", detail: "เจ้าตูบเพื่อนรัก", speak: "D! Dog! Woof woof!" },
+          { char: "E", emoji: "🐘", word: "Elephant", detail: "ช้างตัวโต", speak: "E! Elephant!" },
+          { char: "F", emoji: "🐟", word: "Fish", detail: "ปลาว่ายน้ำ", speak: "F! Fish! Swimming fish!" },
+          { char: "G", emoji: "🦒", word: "Giraffe", detail: "ยีราฟคอยาว", speak: "G! Giraffe!" },
+          { char: "H", emoji: "🐎", word: "Horse", detail: "ม้าวิ่งกุบกับ", speak: "H! Horse!" },
+          { char: "I", emoji: "🍦", word: "Ice Cream", detail: "ไอศกรีมหวานเย็น", speak: "I! Yummy ice cream!" },
+          { char: "J", emoji: "🧃", word: "Juice", detail: "น้ำผลไม้ชื่นใจ", speak: "J! Sweet juice!" },
+          { char: "K", emoji: "🦘", word: "Kangaroo", detail: "จิงโจ้กระโดด", speak: "K! Jumping kangaroo!" },
+          { char: "L", emoji: "🦁", word: "Lion", detail: "สิงโตเจ้าป่า", speak: "L! Roaring lion!" },
+          { char: "M", emoji: "🐒", word: "Monkey", detail: "ลิงจ๋อแสนซน", speak: "M! Silly monkey!" },
+          { char: "N", emoji: "🪺", word: "Nest", detail: "รังนกน้อย", speak: "N! Cozy nest!" },
+          { char: "O", emoji: "🍊", word: "Orange", detail: "ส้มแสนอร่อย", speak: "O! Juicy orange!" },
+          { char: "P", emoji: "🐼", word: "Panda", detail: "หมีแพนด้าน่ารัก", speak: "P! Panda bear!" },
+          { char: "Q", emoji: "👑", word: "Queen", detail: "พระราชินี", speak: "Q! Beautiful queen!" },
+          { char: "Rr", emoji: "🌈", word: "Rainbow", detail: "สายรุ้งเจ็ดสี", speak: "R! Pretty rainbow!" },
+          { char: "S", emoji: "☀️", word: "Sun", detail: "พระอาทิตย์ยิ้ม", speak: "S! Sunny sun!" },
+          { char: "T", emoji: "🐯", word: "Tiger", detail: "เสือลายพาดกลอน", speak: "T! Striped tiger!" },
+          { char: "U", emoji: "☂️", word: "Umbrella", detail: "ร่มกันฝน", speak: "U! Open umbrella!" },
+          { char: "V", emoji: "🎻", word: "Violin", detail: "ไวโอลินเสียงหวาน", speak: "V! Singing violin!" },
+          { char: "W", emoji: "🍉", word: "Watermelon", detail: "แตงโมชื่นใจ", speak: "W! Sweet watermelon!" },
+          { char: "X", emoji: "🪵", word: "Xylophone", detail: "ไซโลโฟนดนตรี", speak: "X! Music xylophone!" },
+          { char: "Y", emoji: "🪀", word: "Yo-yo", detail: "ลูกดิ่งโยโย่", speak: "Y! Spinning yo-yo!" },
+          { char: "Z", emoji: "🦓", word: "Zebra", detail: "ม้าลายแอฟริกา", speak: "Z! Striped zebra!" }
+        ]
+      },
+
+      numbers: {
+        title: "🔢 ตัวเลขแสนสนุก (1 - 10)",
+        lang: "th-TH",
+        themeClass: "card-numbers",
+        items: [
+          { char: "1", emoji: "🍎", word: "๑ หนึ่ง", detail: "แอปเปิ้ล ๑ ผล", speak: "หนึ่ง... วัน... แอปเปิ้ลหนึ่งผลจ้า" },
+          { char: "2", emoji: "🍓🍓", word: "๒ สอง", detail: "สตรอว์เบอร์รี ๒ ลูก", speak: "สอง... ทู... สตรอว์เบอร์รีสองลูกจ้า" },
+          { char: "3", emoji: "🍌🍌🍌", word: "๓ สาม", detail: "กล้วยหอม ๓ ลูก", speak: "สาม... ทรี... กล้วยหอมสามใบจ้า" },
+          { char: "4", emoji: "🍊🍊🍊🍊", word: "๔ สี่", detail: "ส้มหวาน ๔ ผล", speak: "สี่... โฟร์... ส้มหวานสี่ผลจ้า" },
+          { char: "5", emoji: "⭐", word: "๕ ห้า", detail: "ดาวนำโชค ๕ ดวง", speak: "ห้า... ไฟฟ์... ดาวสวยห้าดวงจ้า" },
+          { char: "6", emoji: "🎈", word: "๖ หก", detail: "ลูกโป่งลอย ๖ ใบ", speak: "หก... ซิกส์... ลูกโป่งหกใบจ้า" },
+          { char: "7", emoji: "🌸", word: "๗ เจ็ด", detail: "ดอกไม้บาน ๗ ดอก", speak: "เจ็ด... เซเว่น... ดอกไม้เจ็ดดอกจ้า" },
+          { char: "8", emoji: "🍒", word: "๘ แปด", detail: "เชอร์รี่สด ๘ ผล", speak: "แปด... เอท... เชอร์รี่แปดลูกจ้า" },
+          { char: "9", emoji: "🧁", word: "๙ เก้า", detail: "คัพเค้กหวาน ๙ ชิ้น", speak: "เก้า... ไนน์... คัพเค้กเก้าชิ้นจ้า" },
+          { char: "10", emoji: "🎉", word: "๑๐ สิบ", detail: "คะแนนเต็ม ๑๐ เย้!", speak: "สิบ... เท็น... เยี่ยมมากครบสิบแล้วจ้า!" }
+        ]
+      },
+
+      chinese: {
+        title: "🇨🇳 ภาษาจีนพื้นฐาน (一 到 十)",
+        lang: "zh-CN",
+        themeClass: "card-chinese",
+        items: [
+          { char: "一", emoji: "☝️", word: "yī (อี)", detail: "แปลว่า: หนึ่ง (1)", speak: "一" },
+          { char: "二", emoji: "✌️", word: "èr (เอ้อ)", detail: "แปลว่า: สอง (2)", speak: "二" },
+          { char: "三", emoji: "🤟", word: "sān (ซาน)", detail: "แปลว่า: สาม (3)", speak: "三" },
+          { char: "四", emoji: "🍀", word: "sì (ซื่อ)", detail: "แปลว่า: สี่ (4)", speak: "四" },
+          { char: "五", emoji: "🖐️", word: "wǔ (อู่)", detail: "แปลว่า: ห้า (5)", speak: "五" },
+          { char: "六", emoji: "🤙", word: "liù (ลิ่ว)", detail: "แปลว่า: หก (6)", speak: "六" },
+          { char: "七", emoji: "🌈", word: "qī (ชี)", detail: "แปลว่า: เจ็ด (7)", speak: "七" },
+          { char: "八", emoji: "🎱", word: "bā (ปา)", detail: "แปลว่า: แปด (8)", speak: "八" },
+          { char: "九", emoji: "🎈", word: "jiǔ (จิ่ว)", detail: "แปลว่า: เก้า (9)", speak: "九" },
+          { char: "十", emoji: "🔟", word: "shí (สือ)", detail: "แปลว่า: สิบ (10)", speak: "十" },
+          { char: "人", emoji: "🧑", word: "rén (เหริน)", detail: "แปลว่า: คน / มนุษย์", speak: "人" },
+          { char: "日", emoji: "☀️", word: "rì (ยรื่อ)", detail: "แปลว่า: พระอาทิตย์", speak: "日" },
+          { char: "月", emoji: "🌙", word: "yuè (เยวี่ย)", detail: "แปลว่า: พระจันทร์", speak: "月" },
+          { char: "大", emoji: "🐘", word: "dà (ต้า)", detail: "แปลว่า: ใหญ่", speak: "大" },
+          { char: "小", emoji: "🐥", word: "xiǎo (เสี่ยว)", detail: "แปลว่า: เล็ก", speak: "小" }
+        ]
+      }
+    };
+
+    /* --------------------------------------------------------------------------
+       🎶 2. SOUND EFFECTS & MELODIC SPEECH ENGINE
+       -------------------------------------------------------------------------- */
+    let audioCtx = null;
     function getAudioContext() {
       if (!audioCtx) {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
         audioCtx = new AudioContextClass();
       }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
       return audioCtx;
     }
 
-    // 1. เสียงของเล่นเด้งดึ๋ง "Boing / Pop!"
-    function playCartoonBoing() {
+    function playWarmMallet(noteFreq = 523.25) {
       try {
         const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(noteFreq, now);
+        gain1.gain.setValueAtTime(0.4, now);
+        gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(noteFreq * 2.76, now);
+        gain2.gain.setValueAtTime(0.12, now);
+        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+        osc1.connect(gain1); gain1.connect(ctx.destination);
+        osc2.connect(gain2); gain2.connect(ctx.destination);
+
+        osc1.start(now); osc1.stop(now + 0.36);
+        osc2.start(now); osc2.stop(now + 0.1);
+      } catch (e) {}
+    }
+
+    function playSpringBoing() {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
-
-        osc.type = 'triangle';
-        // Pitch Slide สไตล์ของเล่นเด็ก
-        osc.frequency.setValueAtTime(220, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.12);
-
-        gain.gain.setValueAtTime(0.4, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
-
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-
-        osc.start();
-        osc.stop(ctx.currentTime + 0.23);
-      } catch (e) {
-        console.warn(e);
-      }
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(340, now);
+        osc.frequency.exponentialRampToValueAtTime(170, now + 0.26);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(now); osc.stop(now + 0.3);
+      } catch (e) {}
     }
 
-    // 2. เสียงกระดิ่งวิบวับ "Magic Twinkle"
-    function playMagicChime() {
+    function playCelebrationFanfare() {
+      const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+      notes.forEach((f, i) => {
+        setTimeout(() => playWarmMallet(f), i * 110);
+      });
+    }
+
+    function playWhooshClear() {
       try {
         const ctx = getAudioContext();
-        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51]; // คอร์ด C Major ไพเราะ
-
-        notes.forEach((freq, idx) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          const start = ctx.currentTime + (idx * 0.05);
-
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, start);
-
-          gain.gain.setValueAtTime(0.25, start);
-          gain.gain.exponentialRampToValueAtTime(0.001, start + 0.3);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-
-          osc.start(start);
-          osc.stop(start + 0.32);
-        });
-      } catch (e) {
-        console.warn(e);
-      }
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(700, now);
+        osc.frequency.exponentialRampToValueAtTime(200, now + 0.22);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(now); osc.stop(now + 0.26);
+      } catch (e) {}
     }
 
-    // 3. เสียงพูดครูพี่เลี้ยง (Web Speech API)
-    function speakKidFriendly(text, lang = 'th-TH') {
+    let availableVoices = [];
+    function initVoices() {
+      if ('speechSynthesis' in window) availableVoices = window.speechSynthesis.getVoices();
+    }
+    if ('speechSynthesis' in window) {
+      speechSynthesis.onvoiceschanged = initVoices;
+      initVoices();
+    }
+
+    function pickBestVoice(langCode) {
+      if (!availableVoices || availableVoices.length === 0) availableVoices = window.speechSynthesis.getVoices();
+      const langVoices = availableVoices.filter(v => v.lang.toLowerCase().startsWith(langCode.toLowerCase()));
+      if (langVoices.length === 0) return null;
+
+      const priorities = ['siri', 'enhanced', 'kanya', 'narisa', 'samantha', 'ava', 'tingting', 'meijia', 'natural'];
+      for (const p of priorities) {
+        const found = langVoices.find(v => v.name.toLowerCase().includes(p));
+        if (found) return found;
+      }
+      return langVoices[0];
+    }
+
+    function speakMelodicPhrases(phraseSegments) {
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
 
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = lang;
-      utter.rate = 0.92;  // ช้าลงนิดหน่อยให้เด็กฟังชัด
-      utter.pitch = 1.35; // เสียงสูงสดใสร่าเริง
-      window.speechSynthesis.speak(utter);
+      let idx = 0;
+      function speakSegment() {
+        if (idx >= phraseSegments.length) return;
+        const seg = phraseSegments[idx++];
+
+        const utter = new SpeechSynthesisUtterance(seg.text);
+        utter.lang = seg.lang || 'th-TH';
+
+        const bestV = pickBestVoice(utter.lang.split('-')[0]);
+        if (bestV) utter.voice = bestV;
+
+        utter.pitch = seg.pitch || 1.15;
+        utter.rate = seg.rate || 0.92;
+
+        utter.onend = () => {
+          setTimeout(speakSegment, seg.delay || 70);
+        };
+        utter.onerror = () => {
+          speakSegment();
+        };
+
+        window.speechSynthesis.speak(utter);
+      }
+
+      speakSegment();
     }
 
-    // 4. เอฟเฟกต์ดาวกระจาย (Star Particles Burst)
     function spawnStarBurst(x, y) {
       const starIcons = ['⭐', '✨', '🌟', '💖', '🎉'];
       for (let i = 0; i < 8; i++) {
         const star = document.createElement('div');
         star.className = 'star-particle';
         star.textContent = starIcons[Math.floor(Math.random() * starIcons.length)];
-        
-        // คำนวณทิศทางกระจายตัวรอบทิศทาง
         const angle = (Math.PI * 2 / 8) * i + (Math.random() * 0.4);
         const distance = 80 + Math.random() * 60;
-        const dx = Math.cos(angle) * distance + 'px';
-        const dy = Math.sin(angle) * distance + 'px';
-
         star.style.left = x + 'px';
         star.style.top = y + 'px';
-        star.style.setProperty('--dx', dx);
-        star.style.setProperty('--dy', dy);
-
+        star.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
+        star.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
         document.body.appendChild(star);
         setTimeout(() => star.remove(), 850);
       }
     }
 
-    /* ==========================================================================
-       🎮 จัดการการแตะสัมผัส (Touch & Interaction Handlers)
-       ========================================================================== */
-    document.addEventListener('DOMContentLoaded', () => {
-      const guideText = document.getElementById('guideMessage');
-      const mascot = document.getElementById('mascotBtn');
-      const cards = document.querySelectorAll('.toy-card');
+    /* --------------------------------------------------------------------------
+       ✏️ 3. APPLE PENCIL HANDWRITING & TRACING STUDIO ENGINE
+       -------------------------------------------------------------------------- */
+    let writingSubjectKey = 'thai';
+    let writingCharIndex = 0;
+    let currentColor = '#FF4D6D';
+    let isEraserMode = false;
 
-      const subjectData = {
-        thai: {
-          speak: 'วิชาภาษาไทย ก ไก่ ถึง ฮ นกฮูก จ้า!',
-          lang: 'th-TH',
-          guide: '🇹🇭 ยอดเยี่ยมมาก! เรามาฝึกอ่าน ก ไก่ กันเถอะหนูน้อย!'
-        },
-        english: {
-          speak: 'English ABC! Let us sing A to Z!',
-          lang: 'en-US',
-          guide: '🇬🇧 Fantastic! Let\'s learn English ABC together!'
-        },
-        numbers: {
-          speak: 'วิชาตัวเลขแสนสนุก 1 ถึง 10 จ้า!',
-          lang: 'th-TH',
-          guide: '🔢 เก่งจังเลย! มานับ 1 2 3 และ ๑ ๒ ๓ ด้วยกันนะ!'
-        },
-        chinese: {
-          speak: 'ภาษาจีนพื้นฐาน อี เออ ซาน ซื่อ อู่ จ้า!',
-          lang: 'th-TH',
-          guide: '🇨🇳 ว้าว! มาเรียนภาษาจีน 一 ถึง 十 กันเลยคนเก่ง!'
-        }
+    const canvasTrace = document.getElementById('canvasTrace');
+    const canvasFree = document.getElementById('canvasFree');
+    const ctxTrace = canvasTrace.getContext('2d');
+    const ctxFree = canvasFree.getContext('2d');
+
+    const traceGuideChar = document.getElementById('traceGuideChar');
+    const currentCharLabel = document.getElementById('currentCharLabel');
+
+    // จัดการขนาด Canvas ให้คมกริบแบบ Retina Display (DPR 2x บน iPad)
+    function setupRetinaCanvas(c, ctx) {
+      const rect = c.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 2;
+      c.width = rect.width * dpr;
+      c.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+    }
+
+    function initWritingCanvases() {
+      setupRetinaCanvas(canvasTrace, ctxTrace);
+      setupRetinaCanvas(canvasFree, ctxFree);
+      renderWritingCharacter();
+    }
+
+    // อัปเดตตัวอักษรที่จะฝึกเขียน
+    function renderWritingCharacter() {
+      const subject = LESSONS[writingSubjectKey];
+      const item = subject.items[writingCharIndex];
+
+      traceGuideChar.textContent = item.char;
+      currentCharLabel.textContent = `${item.char} ${item.word || ''} ${item.emoji || ''}`;
+
+      // เคลียร์ลายเส้นเดิม
+      clearWritingBoard();
+    }
+
+    function clearWritingBoard() {
+      const dpr = window.devicePixelRatio || 2;
+      ctxTrace.clearRect(0, 0, canvasTrace.width / dpr, canvasTrace.height / dpr);
+      ctxFree.clearRect(0, 0, canvasFree.width / dpr, canvasFree.height / dpr);
+    }
+
+    // Engine การวาดลายเส้นด้วย Apple Pencil & นิ้วมือ
+    function attachPencilDrawingEngine(canvasElement, context) {
+      let drawing = false;
+      let lastPoint = null;
+
+      function getCanvasCoordinates(e) {
+        const rect = canvasElement.getBoundingClientRect();
+        return {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+          pressure: e.pressure !== undefined && e.pressure > 0 ? e.pressure : 0.5,
+          pointerType: e.pointerType || 'touch'
+        };
+      }
+
+      canvasElement.addEventListener('pointerdown', (e) => {
+        drawing = true;
+        canvasElement.setPointerCapture(e.pointerId);
+        lastPoint = getCanvasCoordinates(e);
+
+        context.beginPath();
+        context.moveTo(lastPoint.x, lastPoint.y);
+
+        // ตรวจจับ Apple Pencil หรือนิ้วมือ
+        applyBrushSettings(context, lastPoint.pressure);
+      });
+
+      canvasElement.addEventListener('pointermove', (e) => {
+        if (!drawing) return;
+        const currentPoint = getCanvasCoordinates(e);
+
+        applyBrushSettings(context, currentPoint.pressure);
+
+        // เส้นโค้งนุ่มนวล Quadratic Curve
+        const midX = (lastPoint.x + currentPoint.x) / 2;
+        const midY = (lastPoint.y + currentPoint.y) / 2;
+        context.quadraticCurveTo(lastPoint.x, lastPoint.y, midX, midY);
+        context.stroke();
+
+        lastPoint = currentPoint;
+      });
+
+      function stopDrawing(e) {
+        if (!drawing) return;
+        drawing = false;
+        context.closePath();
+        try { canvasElement.releasePointerCapture(e.pointerId); } catch(err){}
+      }
+
+      canvasElement.addEventListener('pointerup', stopDrawing);
+      canvasElement.addEventListener('pointercancel', stopDrawing);
+    }
+
+    function applyBrushSettings(context, pressure) {
+      if (isEraserMode) {
+        context.globalCompositeOperation = 'destination-out';
+        context.lineWidth = 32;
+      } else {
+        context.globalCompositeOperation = 'source-over';
+        context.strokeStyle = currentColor;
+        // ปรับความหนาตามแรงกดของ Apple Pencil จริง (Pressure-sensitive Line)
+        const baseWidth = 14;
+        context.lineWidth = baseWidth * (0.4 + pressure * 1.2);
+      }
+    }
+
+    attachPencilDrawingEngine(canvasTrace, ctxTrace);
+    attachPencilDrawingEngine(canvasFree, ctxFree);
+
+    /* --------------------------------------------------------------------------
+       🎯 4. THAI LINE MATCHING GAME ENGINE
+       -------------------------------------------------------------------------- */
+    let currentRoundItems = [];
+    let matchedPairs = [];
+    let selectedLeftId = null;
+    let selectedRightId = null;
+
+    let isDragging = false;
+    let dragStartPos = null;
+    let dragCurrentPos = null;
+    let dragSourceItem = null;
+
+    const matchArena = document.getElementById('matchArena');
+    const canvas = document.getElementById('matchingCanvas');
+    const ctx = canvas.getContext('2d');
+    const leftCol = document.getElementById('leftColumnLetters');
+    const rightCol = document.getElementById('rightColumnPictures');
+    const celebOverlay = document.getElementById('celebOverlay');
+    const gameGuideText = document.getElementById('gameGuideText');
+
+    function startNewThaiGame() {
+      celebOverlay.classList.add('hidden');
+      matchedPairs = [];
+      selectedLeftId = null;
+      selectedRightId = null;
+      isDragging = false;
+
+      const allThai = [...LESSONS.thai.items];
+      for (let i = allThai.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [allThai[i], allThai[j]] = [allThai[j], allThai[i]];
+      }
+      currentRoundItems = allThai.slice(0, 6);
+
+      let shuffledPictures = [...currentRoundItems];
+      for (let i = shuffledPictures.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledPictures[i], shuffledPictures[j]] = [shuffledPictures[j], shuffledPictures[i]];
+      }
+
+      leftCol.innerHTML = '';
+      currentRoundItems.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'match-item-card';
+        card.id = `left-${item.char}`;
+        card.dataset.char = item.char;
+        card.dataset.side = 'left';
+        card.innerHTML = `
+          <div style="display: flex; align-items: baseline;">
+            <span class="card-char-big">${item.char}</span>
+            <span class="card-char-label">${item.word.replace(item.char, '').trim()}</span>
+          </div>
+          <div class="connect-dot" id="dot-left-${item.char}"></div>
+        `;
+        attachCardEvents(card, 'left', item);
+        leftCol.appendChild(card);
+      });
+
+      rightCol.innerHTML = '';
+      shuffledPictures.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'match-item-card';
+        card.id = `right-${item.char}`;
+        card.dataset.char = item.char;
+        card.dataset.side = 'right';
+        card.innerHTML = `
+          <div class="connect-dot" id="dot-right-${item.char}"></div>
+          <div class="card-picture-only-wrapper">
+            <span class="card-picture-emoji">${item.emoji}</span>
+          </div>
+        `;
+        attachCardEvents(card, 'right', item);
+        rightCol.appendChild(card);
+      });
+
+      resizeCanvas();
+      redrawLines();
+
+      gameGuideText.textContent = 'ลากนิ้วจากตัวอักษรไปหารูปภาพ หรือแตะจับคู่ได้เลยจ้า! 🖍️';
+      speakMelodicPhrases([
+        { text: "เย้!", pitch: 1.26, rate: 0.96, delay: 70 },
+        { text: "มาเล่นเกมโยงเส้น ก ไก่ กันเถอะจ้าา!", pitch: 1.10, rate: 0.90 }
+      ]);
+    }
+
+    function resizeCanvas() {
+      if (!matchArena || !canvas) return;
+      const rect = matchArena.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      redrawLines();
+      if (!document.getElementById('writingView').classList.contains('hidden')) {
+        initWritingCanvases();
+      }
+    });
+
+    function getDotCenter(side, char) {
+      const dot = document.getElementById(`dot-${side}-${char}`);
+      if (!dot) return null;
+      const arenaRect = matchArena.getBoundingClientRect();
+      const dotRect = dot.getBoundingClientRect();
+      return {
+        x: dotRect.left + dotRect.width / 2 - arenaRect.left,
+        y: dotRect.top + dotRect.height / 2 - arenaRect.top
       };
+    }
 
-      cards.forEach(card => {
-        card.addEventListener('pointerdown', (e) => {
-          // เล่นเสียง Boing
-          playCartoonBoing();
+    function redrawLines() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const lineColors = ['#FF6B6B', '#4D96FF', '#FFB703', '#20BF6B', '#9B5DE5', '#F15BB5'];
 
-          // เด้งปุ่ม
-          card.classList.add('pressed');
-          setTimeout(() => card.classList.remove('pressed'), 180);
+      matchedPairs.forEach((pair, idx) => {
+        const p1 = getDotCenter('left', pair.char);
+        const p2 = getDotCenter('right', pair.char);
+        if (p1 && p2) {
+          ctx.save();
+          ctx.beginPath();
+          ctx.lineWidth = 9;
+          ctx.lineCap = 'round';
+          ctx.strokeStyle = lineColors[idx % lineColors.length];
+          const cpX = (p1.x + p2.x) / 2;
+          ctx.moveTo(p1.x, p1.y);
+          ctx.bezierCurveTo(cpX, p1.y, cpX, p2.y, p2.x, p2.y);
+          ctx.stroke();
 
-          // เสกดาวกระจายตรงจุดที่นิ้วแตะ
+          ctx.fillStyle = '#FFFFFF';
+          ctx.beginPath();
+          ctx.arc(p1.x, p1.y, 4, 0, Math.PI * 2);
+          ctx.arc(p2.x, p2.y, 4, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      });
+
+      if (isDragging && dragStartPos && dragCurrentPos) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.lineWidth = 8;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#FFA000';
+        ctx.setLineDash([10, 8]);
+        const cpX = (dragStartPos.x + dragCurrentPos.x) / 2;
+        ctx.moveTo(dragStartPos.x, dragStartPos.y);
+        ctx.bezierCurveTo(cpX, dragStartPos.y, cpX, dragCurrentPos.y, dragCurrentPos.x, dragCurrentPos.y);
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+
+    function attachCardEvents(card, side, item) {
+      card.addEventListener('pointerdown', (e) => {
+        if (card.classList.contains('is-matched')) return;
+
+        playWarmMallet(523.25);
+        const dotPos = getDotCenter(side, item.char);
+        if (!dotPos) return;
+
+        isDragging = true;
+        dragSourceItem = { side, char: item.char };
+        dragStartPos = dotPos;
+        const arenaRect = matchArena.getBoundingClientRect();
+        dragCurrentPos = {
+          x: e.clientX - arenaRect.left,
+          y: e.clientY - arenaRect.top
+        };
+
+        clearHighlights();
+        card.classList.add('is-selected');
+        if (side === 'left') selectedLeftId = item.char;
+        if (side === 'right') selectedRightId = item.char;
+
+        redrawLines();
+      });
+    }
+
+    matchArena.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const arenaRect = matchArena.getBoundingClientRect();
+      dragCurrentPos = {
+        x: e.clientX - arenaRect.left,
+        y: e.clientY - arenaRect.top
+      };
+      redrawLines();
+    });
+
+    matchArena.addEventListener('pointerup', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      const targetElement = document.elementFromPoint(e.clientX, e.clientY);
+      const targetCard = targetElement ? targetElement.closest('.match-item-card') : null;
+
+      if (targetCard && !targetCard.classList.contains('is-matched')) {
+        const targetSide = targetCard.dataset.side;
+        const targetChar = targetCard.dataset.char;
+
+        if (dragSourceItem && targetSide !== dragSourceItem.side) {
+          const leftChar = dragSourceItem.side === 'left' ? dragSourceItem.char : targetChar;
+          const rightChar = dragSourceItem.side === 'right' ? dragSourceItem.char : targetChar;
+          evaluateMatch(leftChar, rightChar, e.clientX, e.clientY);
+          return;
+        }
+      }
+
+      if (selectedLeftId && selectedRightId) {
+        evaluateMatch(selectedLeftId, selectedRightId, e.clientX, e.clientY);
+      } else {
+        redrawLines();
+      }
+    });
+
+    function evaluateMatch(leftChar, rightChar, clickX, clickY) {
+      const leftCard = document.getElementById(`left-${leftChar}`);
+      const rightCard = document.getElementById(`right-${rightChar}`);
+
+      if (leftChar === rightChar) {
+        const matchedItem = currentRoundItems.find(it => it.char === leftChar);
+        matchedPairs.push(matchedItem);
+
+        leftCard.classList.remove('is-selected');
+        rightCard.classList.remove('is-selected');
+        leftCard.classList.add('is-matched');
+        rightCard.classList.add('is-matched');
+
+        playWarmMallet(783.99);
+        setTimeout(() => playWarmMallet(1046.50), 90);
+
+        if (clickX && clickY) spawnStarBurst(clickX, clickY);
+
+        gameGuideText.textContent = `🎉 ว้าว! ${matchedItem.word} ถูกต้องแล้วจ้า!`;
+        speakMelodicPhrases([
+          { text: "ว้าววว!", pitch: 1.28, rate: 0.96, delay: 80 },
+          { text: `${matchedItem.word}... ถูกต้องแล้วจ้าา!`, pitch: 1.08, rate: 0.88, delay: 60 },
+          { text: "เก่งมากเลยยย!", pitch: 1.18, rate: 0.92 }
+        ]);
+
+        selectedLeftId = null;
+        selectedRightId = null;
+        dragSourceItem = null;
+        redrawLines();
+
+        if (matchedPairs.length === currentRoundItems.length) {
+          setTimeout(() => triggerGameVictory(), 600);
+        }
+      } else {
+        playSpringBoing();
+
+        if (leftCard) leftCard.classList.add('wiggle-wrong');
+        if (rightCard) rightCard.classList.add('wiggle-wrong');
+
+        setTimeout(() => {
+          if (leftCard) leftCard.classList.remove('wiggle-wrong', 'is-selected');
+          if (rightCard) rightCard.classList.remove('wiggle-wrong', 'is-selected');
+        }, 450);
+
+        gameGuideText.textContent = 'ดึ๋ง~ ยังไม่ตรงกันนะจ๊ะ ลองดูอีกทีนะคนเก่ง! 💕';
+        speakMelodicPhrases([
+          { text: "อุ๊ยยย...", pitch: 1.12, rate: 0.86, delay: 90 },
+          { text: "ยังไม่ตรงกันน้าา", pitch: 1.02, rate: 0.86, delay: 60 },
+          { text: "ลองหาใหม่อีกทีนะจ๊ะคนเก่ง!", pitch: 1.14, rate: 0.90 }
+        ]);
+
+        selectedLeftId = null;
+        selectedRightId = null;
+        dragSourceItem = null;
+        redrawLines();
+      }
+    }
+
+    function clearHighlights() {
+      document.querySelectorAll('.match-item-card').forEach(c => {
+        if (!c.classList.contains('is-matched')) c.classList.remove('is-selected');
+      });
+    }
+
+    function triggerGameVictory() {
+      playCelebrationFanfare();
+      celebOverlay.classList.remove('hidden');
+
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          const rx = window.innerWidth * 0.2 + Math.random() * (window.innerWidth * 0.6);
+          const ry = window.innerHeight * 0.2 + Math.random() * (window.innerHeight * 0.6);
+          spawnStarBurst(rx, ry);
+        }, i * 120);
+      }
+
+      speakMelodicPhrases([
+        { text: "ไชโยยย!", pitch: 1.30, rate: 0.96, delay: 80 },
+        { text: "เก่งที่สุดในโลกเลยยย!", pitch: 1.18, rate: 0.90, delay: 60 },
+        { text: "หนูน้อยโยงครบทุกคู่แล้วจ้า!", pitch: 1.12, rate: 0.88 }
+      ]);
+    }
+
+    /* --------------------------------------------------------------------------
+       🕹️ 5. FLASHCARD CONTROLLER & NAVIGATION
+       -------------------------------------------------------------------------- */
+    let currentSubjectKey = 'thai';
+    let currentItemIndex = 0;
+
+    const homeView = document.getElementById('homeView');
+    const thaiGameView = document.getElementById('thaiGameView');
+    const flashcardView = document.getElementById('flashcardView');
+    const writingView = document.getElementById('writingView');
+    const currentSubjectTitle = document.getElementById('currentSubjectTitle');
+
+    const jumboCard = document.getElementById('jumboCard');
+    const cardCounter = document.getElementById('cardCounter');
+    const cardChar = document.getElementById('cardChar');
+    const cardEmoji = document.getElementById('cardEmoji');
+    const cardWord = document.getElementById('cardWord');
+    const cardSubdetail = document.getElementById('cardSubdetail');
+
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const btnBackHome = document.getElementById('btnBackHome');
+
+    const singleCardStage = document.getElementById('singleCardStage');
+    const gridSoundboard = document.getElementById('gridSoundboard');
+    const btnModeSingle = document.getElementById('btnModeSingle');
+    const btnModeGrid = document.getElementById('btnModeGrid');
+
+    function openSubject(subjectKey) {
+      if (subjectKey === 'thai') {
+        homeView.classList.add('hidden');
+        flashcardView.classList.add('hidden');
+        writingView.classList.add('hidden');
+        thaiGameView.classList.remove('hidden');
+        startNewThaiGame();
+        return;
+      }
+
+      currentSubjectKey = subjectKey;
+      currentItemIndex = 0;
+
+      const subject = LESSONS[subjectKey];
+      currentSubjectTitle.textContent = subject.title;
+      jumboCard.className = `jumbo-flashcard ${subject.themeClass}`;
+
+      renderCurrentCard();
+      renderGridSoundboard();
+
+      homeView.classList.add('hidden');
+      thaiGameView.classList.add('hidden');
+      writingView.classList.add('hidden');
+      flashcardView.classList.remove('hidden');
+
+      setTimeout(() => speakCurrentItem(), 300);
+    }
+
+    function openWritingStudio(subjectKey = 'thai') {
+      writingSubjectKey = subjectKey;
+      writingCharIndex = 0;
+
+      homeView.classList.add('hidden');
+      thaiGameView.classList.add('hidden');
+      flashcardView.classList.add('hidden');
+      writingView.classList.remove('hidden');
+
+      // อัปเดตแท็บ
+      document.querySelectorAll('.btn-subject-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.wsubject === subjectKey);
+      });
+
+      setTimeout(() => {
+        initWritingCanvases();
+        speakMelodicPhrases([
+          { text: "ว้าวว!", pitch: 1.25, rate: 0.96, delay: 60 },
+          { text: "ยินดีต้อนรับสู่สตูดิโอฝึกเขียนจ้า!", pitch: 1.10, rate: 0.90 }
+        ]);
+      }, 100);
+    }
+
+    function renderCurrentCard() {
+      const subject = LESSONS[currentSubjectKey];
+      const item = subject.items[currentItemIndex];
+
+      cardCounter.textContent = `${currentItemIndex + 1} / ${subject.items.length}`;
+      cardChar.textContent = item.char;
+      cardEmoji.textContent = item.emoji;
+      cardWord.textContent = item.word;
+      cardSubdetail.textContent = item.detail;
+    }
+
+    function speakCurrentItem() {
+      const subject = LESSONS[currentSubjectKey];
+      const item = subject.items[currentItemIndex];
+
+      if (currentSubjectKey === 'english') {
+        speakMelodicPhrases([
+          { text: "Yay!", lang: "en-US", pitch: 1.25, rate: 0.98, delay: 60 },
+          { text: item.speak, lang: "en-US", pitch: 1.10, rate: 0.90 }
+        ]);
+      } else if (currentSubjectKey === 'chinese') {
+        speakMelodicPhrases([
+          { text: item.speak, lang: "zh-CN", pitch: 1.05, rate: 0.85, delay: 350 },
+          { text: `${item.word} ${item.detail}`, lang: "th-TH", pitch: 1.12, rate: 0.90 }
+        ]);
+      } else {
+        speakMelodicPhrases([
+          { text: item.speak, lang: "th-TH", pitch: 1.12, rate: 0.88 }
+        ]);
+      }
+    }
+
+    function renderGridSoundboard() {
+      const subject = LESSONS[currentSubjectKey];
+      gridSoundboard.innerHTML = '';
+
+      subject.items.forEach((item, idx) => {
+        const tile = document.createElement('div');
+        tile.className = `tile-mini-card ${idx === currentItemIndex ? 'active-tile' : ''}`;
+        tile.innerHTML = `
+          <div class="tile-char">${item.char}</div>
+          <div class="tile-emoji">${item.emoji}</div>
+        `;
+        tile.addEventListener('pointerdown', (e) => {
+          playWarmMallet(523.25 + (idx % 8) * 45);
           spawnStarBurst(e.clientX, e.clientY);
+          currentItemIndex = idx;
+          renderCurrentCard();
+          speakCurrentItem();
 
-          // อัปเดตข้อความและพูด
+          document.querySelectorAll('.tile-mini-card').forEach(t => t.classList.remove('active-tile'));
+          tile.classList.add('active-tile');
+        });
+        gridSoundboard.appendChild(tile);
+      });
+    }
+
+    function nextCard() {
+      const subject = LESSONS[currentSubjectKey];
+      currentItemIndex = (currentItemIndex + 1) % subject.items.length;
+      renderCurrentCard();
+      speakCurrentItem();
+    }
+
+    function prevCard() {
+      const subject = LESSONS[currentSubjectKey];
+      currentItemIndex = (currentItemIndex - 1 + subject.items.length) % subject.items.length;
+      renderCurrentCard();
+      speakCurrentItem();
+    }
+
+    /* --------------------------------------------------------------------------
+       🎮 6. EVENT LISTENERS
+       -------------------------------------------------------------------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. ปุ่ม Hero Writing Studio หน้าแรก
+      document.getElementById('btnHeroWriting').addEventListener('pointerdown', () => {
+        playWarmMallet(659.25);
+        openWritingStudio('thai');
+      });
+
+      // 2. ปุ่มเลือก 4 หมวดวิชาหน้า Home
+      document.querySelectorAll('.toy-card').forEach(card => {
+        card.addEventListener('pointerdown', (e) => {
           const subject = card.dataset.subject;
-          const data = subjectData[subject];
-          if (data) {
-            guideText.textContent = data.guide;
-            speakKidFriendly(data.speak, data.lang);
-          }
+          playWarmMallet(659.25);
+          spawnStarBurst(e.clientX, e.clientY);
+          card.classList.add('pressed');
+          setTimeout(() => {
+            card.classList.remove('pressed');
+            openSubject(subject);
+          }, 220);
         });
       });
 
-      // แตะที่พี่สิงโตมาสคอต
+      // 3. Navigation Studio ฝึกเขียน
+      document.getElementById('btnWritingHome').addEventListener('pointerdown', () => {
+        playWarmMallet(440);
+        writingView.classList.add('hidden');
+        homeView.classList.remove('hidden');
+      });
+
+      // สลับวิชาในสตูดิโอฝึกเขียน
+      document.querySelectorAll('.btn-subject-tab').forEach(tab => {
+        tab.addEventListener('pointerdown', () => {
+          playWarmMallet(523.25);
+          document.querySelectorAll('.btn-subject-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          writingSubjectKey = tab.dataset.wsubject;
+          writingCharIndex = 0;
+          renderWritingCharacter();
+        });
+      });
+
+      // เลื่อนตัวอักษรในสตูดิโอฝึกเขียน
+      document.getElementById('btnNextWriteChar').addEventListener('pointerdown', () => {
+        playWarmMallet(659.25);
+        const subject = LESSONS[writingSubjectKey];
+        writingCharIndex = (writingCharIndex + 1) % subject.items.length;
+        renderWritingCharacter();
+      });
+
+      document.getElementById('btnPrevWriteChar').addEventListener('pointerdown', () => {
+        playWarmMallet(523.25);
+        const subject = LESSONS[writingSubjectKey];
+        writingCharIndex = (writingCharIndex - 1 + subject.items.length) % subject.items.length;
+        renderWritingCharacter();
+      });
+
+      // ฟังเสียงตัวอักษรที่กำลังฝึกเขียน
+      document.getElementById('btnSpeakChar').addEventListener('pointerdown', () => {
+        playWarmMallet(783.99);
+        const subject = LESSONS[writingSubjectKey];
+        const item = subject.items[writingCharIndex];
+        speakMelodicPhrases([
+          { text: item.speak, lang: subject.lang, pitch: 1.12, rate: 0.88 }
+        ]);
+      });
+
+      // ปุ่มล้างกระดาน
+      document.getElementById('btnClearBothCanvas').addEventListener('pointerdown', () => {
+        playWhooshClear();
+        clearWritingBoard();
+      });
+
+      // ปุ่มเลือกสีดินสอ
+      document.querySelectorAll('.color-swatch-btn').forEach(swatch => {
+        swatch.addEventListener('pointerdown', () => {
+          playWarmMallet(659.25);
+          isEraserMode = false;
+          document.querySelectorAll('.color-swatch-btn').forEach(s => s.classList.remove('active'));
+          swatch.classList.add('active');
+          document.getElementById('btnEraser').style.borderColor = '#FFD43B';
+          currentColor = swatch.dataset.color;
+        });
+      });
+
+      // ปุ่มยางลบ
+      document.getElementById('btnEraser').addEventListener('pointerdown', () => {
+        playWarmMallet(440);
+        isEraserMode = true;
+        document.querySelectorAll('.color-swatch-btn').forEach(s => s.classList.remove('active'));
+        document.getElementById('btnEraser').style.borderColor = '#FF6B8B';
+      });
+
+      // ทางลัดข้ามไปยังสตูดิโอฝึกเขียนจากหน้าเกมภาษาไทยและแฟลชการ์ด
+      document.getElementById('btnThaiGoWriting').addEventListener('pointerdown', () => {
+        playWarmMallet(659.25);
+        openWritingStudio('thai');
+      });
+
+      document.getElementById('btnFlashcardGoWriting').addEventListener('pointerdown', () => {
+        playWarmMallet(659.25);
+        openWritingStudio(currentSubjectKey);
+      });
+
+      // Thai Game Handlers
+      document.getElementById('btnThaiHome').addEventListener('pointerdown', () => {
+        playWarmMallet(440);
+        thaiGameView.classList.add('hidden');
+        homeView.classList.remove('hidden');
+      });
+
+      document.getElementById('btnThaiFlashcard').addEventListener('pointerdown', () => {
+        playWarmMallet(587.33);
+        thaiGameView.classList.add('hidden');
+        currentSubjectKey = 'thai';
+        currentItemIndex = 0;
+        const subject = LESSONS.thai;
+        currentSubjectTitle.textContent = subject.title;
+        jumboCard.className = `jumbo-flashcard ${subject.themeClass}`;
+        renderCurrentCard();
+        renderGridSoundboard();
+        flashcardView.classList.remove('hidden');
+      });
+
+      document.getElementById('btnThaiNewGame').addEventListener('pointerdown', () => {
+        playWarmMallet(659.25);
+        startNewThaiGame();
+      });
+
+      document.getElementById('btnCelebNext').addEventListener('pointerdown', () => {
+        playWarmMallet(783.99);
+        startNewThaiGame();
+      });
+
+      // Flashcard Handlers
+      btnBackHome.addEventListener('pointerdown', () => {
+        playWarmMallet(440);
+        flashcardView.classList.add('hidden');
+        homeView.classList.remove('hidden');
+      });
+
+      btnNext.addEventListener('pointerdown', (e) => { spawnStarBurst(e.clientX, e.clientY); nextCard(); });
+      btnPrev.addEventListener('pointerdown', (e) => { spawnStarBurst(e.clientX, e.clientY); prevCard(); });
+
+      jumboCard.addEventListener('pointerdown', (e) => {
+        playWarmMallet(783.99);
+        spawnStarBurst(e.clientX, e.clientY);
+        jumboCard.classList.add('bounce-tap');
+        setTimeout(() => jumboCard.classList.remove('bounce-tap'), 180);
+        speakCurrentItem();
+      });
+
+      btnModeSingle.addEventListener('pointerdown', () => {
+        playWarmMallet(523.25);
+        btnModeSingle.classList.add('active');
+        btnModeGrid.classList.remove('active');
+        singleCardStage.style.display = 'flex';
+        gridSoundboard.style.display = 'none';
+      });
+
+      btnModeGrid.addEventListener('pointerdown', () => {
+        playWarmMallet(587.33);
+        btnModeGrid.classList.add('active');
+        btnModeSingle.classList.remove('active');
+        singleCardStage.style.display = 'none';
+        gridSoundboard.style.display = 'grid';
+        renderGridSoundboard();
+      });
+
+      // มาสคอตสิงโต
+      const mascot = document.getElementById('mascotBtn');
       if (mascot) {
         mascot.addEventListener('pointerdown', (e) => {
-          playMagicChime();
+          playWarmMallet(1046.50);
           spawnStarBurst(e.clientX, e.clientY);
-          guideText.textContent = '🦁 สวัสดีจ้า! พี่สิงโตพร้อมเล่นกับหนูน้อยแล้วนะ แตะการ์ดสีๆ ได้เลย! ✨';
-          speakKidFriendly('สวัสดีจ้าหนูน้อย วันนี้พร้อมเรียนรู้อย่างสนุกสนานหรือยัง!', 'th-TH');
+          speakMelodicPhrases([
+            { text: "สวัสดีจ้าคนเก่ง!", pitch: 1.25, rate: 0.96, delay: 60 },
+            { text: "วันนี้พร้อมสนุกไปด้วยกันหรือยังเอ่ย?", pitch: 1.12, rate: 0.88 }
+          ]);
         });
       }
     });
